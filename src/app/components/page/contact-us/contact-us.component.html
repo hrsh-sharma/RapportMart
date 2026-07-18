@@ -1,0 +1,155 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<!-- Contact Cards -->
+<section class="ct-cards">
+    <div class="container-fluid-lg">
+        <div class="ct-cards__grid">
+            <a href="mailto:info&#64;rapportmart.com" class="ct-card">
+                <div class="ct-card__icon ct-card__icon--pink"><i class="ri-mail-line"></i></div>
+                <h4>Email Us</h4>
+                <span>info&#64;rapportmart.com</span>
+            </a>
+            <a href="tel:+919286845826" class="ct-card">
+                <div class="ct-card__icon ct-card__icon--lavender"><i class="ri-phone-line"></i></div>
+                <h4>Call Us</h4>
+                <span>+91 92868 45826</span>
+            </a>
+            <div class="ct-card">
+                <div class="ct-card__icon ct-card__icon--mint"><i class="ri-map-pin-line"></i></div>
+                <h4>Visit Us</h4>
+                <span>157KH, Baharhadood Unnamed Road Sarsawan Saharanpur, Uttar Pradesh – 247232 India</span>
+            </div>
+            <div class="ct-card">
+                <div class="ct-card__icon ct-card__icon--peach"><i class="ri-time-line"></i></div>
+                <h4>Working Hours</h4>
+                <span>Mon – Sat, 10 AM – 7 PM</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Form + Company Info -->
+<section class="ct-main">
+    <div class="container-fluid-lg">
+        <div class="row g-4">
+            <!-- Form -->
+            <div class="col-lg-7">
+                <div class="ct-form-card">
+                    <h2 class="ct-form-card__title">Send us a Message</h2>
+                    <p class="ct-form-card__sub">Fill out the form and we'll get back to you within 24 hours.</p>
+
+                    <form [formGroup]="form" (ngSubmit)="submit()">
+                        <div class="ct-form__field">
+                            <label>{{ 'full_name' | translate }}</label>
+                            <input type="text" formControlName="name" placeholder="{{ 'enter_full_name' | translate }}"
+                                (input)="filterSpecialCharacters($event, 'name')" pattern="[a-zA-Z\s]+"
+                                [class.error]="form.controls['name'].touched && form.controls['name'].errors?.['required']">
+                            <span class="ct-form__error"
+                                *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['required']">
+                                {{ 'name_is_required' | translate }}</span>
+                        </div>
+
+                        <div class="ct-form__row">
+                            <div class="ct-form__field">
+                                <label>{{ 'email_address' | translate }}</label>
+                                <input type="email" formControlName="email"
+                                    placeholder="{{ 'enter_email_address' | translate }}"
+                                    (input)="filterEmailCharacters($event)" pattern="[a-zA-Z0-9._\-+@]+"
+                                    [class.error]="form.controls['email'].touched && form.controls['email'].errors?.['required']">
+                                <span class="ct-form__error"
+                                    *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']">
+                                    {{ 'email_is_required' | translate }}</span>
+                            </div>
+                            <div class="ct-form__field">
+                                <label>{{ 'phone_number' | translate }}</label>
+                                <input type="tel" formControlName="phone"
+                                    placeholder="{{ 'enter_your_phone_number' | translate }}"
+                                    (input)="filterPhoneNumber($event)" maxlength="10" pattern="[0-9]{10}"
+                                    [class.error]="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
+                                <span class="ct-form__error"
+                                    *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
+                                    {{ 'phone_number_is_required' | translate }}</span>
+                            </div>
+                        </div>
+
+                        <div class="ct-form__field">
+                            <label>{{ 'subject' | translate }}</label>
+                            <input type="text" formControlName="subject" placeholder="{{ 'enter_subject' | translate }}"
+                                [class.error]="form.controls['subject'].touched && form.controls['subject'].errors?.['required']">
+                            <span class="ct-form__error"
+                                *ngIf="form.controls['subject'].touched && form.controls['subject'].errors?.['required']">
+                                {{ 'subject_is_required' | translate }}</span>
+                        </div>
+
+                        <div class="ct-form__field">
+                            <label>{{ 'message' | translate }}</label>
+                            <textarea formControlName="message" placeholder="{{ 'enter_your_message' | translate }}"
+                                rows="5"
+                                [class.error]="form.controls['message'].touched && form.controls['message'].errors?.['required']"></textarea>
+                            <span class="ct-form__error"
+                                *ngIf="form.controls['message'].touched && form.controls['message'].errors?.['required']">
+                                {{ 'message_is_required' | translate }}</span>
+                        </div>
+
+                        <button type="submit" class="ct-form__submit" [disabled]="form.invalid">
+                            {{ 'send_message' | translate }} <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Company Info -->
+            <div class="col-lg-5">
+                <div class="ct-info-card">
+                    <h3 class="ct-info-card__title">Company Information</h3>
+                    <div class="ct-info-items">
+                        <div class="ct-info-item">
+                            <i class="ri-building-2-line"></i>
+                            <div>
+                                <span class="ct-info-item__label">Company</span>
+                                <span class="ct-info-item__value">Rapportmart Ecommerce Pvt. Ltd.</span>
+                            </div>
+                        </div>
+                        <div class="ct-info-item">
+                            <i class="ri-mail-line"></i>
+                            <div>
+                                <span class="ct-info-item__label">Email</span>
+                                <a href="mailto:info&#64;rapportmart.com"
+                                    class="ct-info-item__value">info&#64;rapportmart.com</a>
+                            </div>
+                        </div>
+                        <div class="ct-info-item">
+                            <i class="ri-phone-line"></i>
+                            <div>
+                                <span class="ct-info-item__label">Phone</span>
+                                <a href="tel:+919286845826" class="ct-info-item__value">+91 92868 45826</a>
+                            </div>
+                        </div>
+                        <div class="ct-info-item">
+                            <i class="ri-map-pin-line"></i>
+                            <div>
+                                <span class="ct-info-item__label">Registered Address</span>
+                                <span class="ct-info-item__value">157KH, Baharhadood Unnamed Road Sarsawan Saharanpur, Uttar Pradesh – 247232 India</span>
+                            </div>
+                        </div>
+                        <div class="ct-info-item">
+                            <i class="ri-global-line"></i>
+                            <div>
+                                <span class="ct-info-item__label">Website</span>
+                                <a href="https://rapportmart.com" target="_blank"
+                                    class="ct-info-item__value">rapportmart.com</a>
+                            </div>
+                        </div>
+                        <div class="ct-info-item">
+                            <i class="ri-file-text-line"></i>
+                            <div>
+                                <span class="ct-info-item__label">CIN</span>
+                                <span class="ct-info-item__value">U74999UP2021PTC148259</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

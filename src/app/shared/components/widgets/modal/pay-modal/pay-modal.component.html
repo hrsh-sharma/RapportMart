@@ -1,0 +1,35 @@
+<ng-template #payModal let-modal>
+  <div class="pm">
+    <div class="pm__header">
+      <div>
+        <h3 class="pm__title">{{ 'Pay Now' | translate }}</h3>
+        <p class="pm__subtitle">Select your preferred payment method</p>
+      </div>
+      <button class="pm__close" (click)="modal.dismiss('Cross click')">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+
+    <div class="pm__body">
+      <div class="pm__methods">
+        <ng-container *ngFor="let payment of (setting$ | async)?.payment_methods">
+          <label class="pm__method" *ngIf="payment.status" [for]="payment.name">
+            <input type="radio" name="payment_method" [value]="payment.name" [id]="payment.name" [formControl]="paymentType">
+            <div class="pm__method-inner">
+              <span class="pm__method-name">{{ (payment.title ? payment.title : payment.name) | titleCase }}</span>
+              <span class="pm__method-check"><i class="ri-check-line"></i></span>
+            </div>
+          </label>
+        </ng-container>
+      </div>
+      <span class="pm__error" *ngIf="paymentType?.touched && paymentType.errors?.['required']">
+        Please select a payment method
+      </span>
+    </div>
+
+    <div class="pm__footer">
+      <button type="button" class="pm__btn-cancel" (click)="modal.dismiss('Cancel')">Cancel</button>
+      <button type="button" class="pm__btn-pay" (click)="submit()">Pay Now</button>
+    </div>
+  </div>
+</ng-template>

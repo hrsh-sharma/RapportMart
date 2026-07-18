@@ -1,0 +1,163 @@
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$text: #333;
+
+app-breadcrumb { display: none !important; }
+
+.ax {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, $lavender 0%, $pink 50%, #fff 100%);
+  padding: 40px 20px;
+
+  &__card {
+    width: 100%;
+    max-width: 440px;
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px 36px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+
+    @media (max-width: 575px) { padding: 32px 24px; border-radius: 20px; }
+  }
+
+  &__logo {
+    text-align: center;
+    margin-bottom: 28px;
+
+    img { height: 44px; width: auto; }
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: $text;
+    margin: 0 0 4px;
+    text-align: center;
+  }
+
+  &__sub {
+    font-size: 13px;
+    color: #999;
+    margin: 0 0 28px;
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  &__field {
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 13px 16px;
+      font-size: 14px;
+      color: $text;
+      background: #faf8fb;
+      border: 1.5px solid #e8e4ef;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      &::placeholder { color: #bbb; }
+      &:focus { background: #fff; border-color: $pink-dark; box-shadow: 0 0 0 3px rgba($pink-dark, 0.08); }
+      &.error { border-color: #e53e3e; }
+    }
+  }
+
+  &__error {
+    display: block;
+    font-size: 11px;
+    color: #e53e3e;
+    margin-top: 4px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #888;
+    cursor: pointer;
+
+    input { width: 16px; height: 16px; accent-color: $pink-dark; }
+  }
+
+  &__forgot {
+    font-size: 13px;
+    font-weight: 600;
+    color: $pink-dark;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+
+  &__submit {
+    margin-top: 4px;
+
+    ::ng-deep .ax__btn,
+    ::ng-deep .ax__btn button {
+      width: 100% !important;
+      padding: 14px !important;
+      background: $text !important;
+      color: $pink !important;
+      border: none !important;
+      border-radius: 50px !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.5px !important;
+      text-transform: uppercase !important;
+      cursor: pointer !important;
+      transition: all 0.25s !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+
+      i { font-size: 18px !important; color: $pink !important; }
+
+      &:hover {
+        background: $pink-dark !important;
+        color: #fff !important;
+        box-shadow: 0 6px 20px rgba($pink-dark, 0.3) !important;
+        i { color: #fff !important; }
+      }
+    }
+  }
+
+  &__switch {
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    margin: 24px 0 0;
+
+    a {
+      color: $pink-dark;
+      font-weight: 600;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+<footer class="ft">
+
+    <!-- Newsletter -->
+    <div class="ft__newsletter">
+        <div class="container-fluid-lg">
+            <div class="ft__nl-inner">
+                <h3 class="ft__nl-title">Stay in the loop</h3>
+                <p class="ft__nl-desc">Exclusive offers, new arrivals & style tips — straight to your inbox.</p>
+                <div class="ft__nl-form">
+                    <input type="email" placeholder="Your email address" [formControl]="email"
+                        (keyup.enter)="submitNewsletter()">
+                    <button type="button" (click)="submitNewsletter()" [disabled]="isSubmitting">
+                        <span *ngIf="!isSubmitting">Subscribe <i class="ri-arrow-right-line"></i></span>
+                        <span *ngIf="isSubmitting">...</span>
+                    </button>
+                </div>
+                <div class="ft__nl-error" *ngIf="email.touched && email.errors?.['email']">
+                    Please enter a valid email address
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Footer -->
+    <div class="ft__main">
+        <div class="container-fluid-lg">
+
+            <!-- Logo + tagline + socials -->
+            <div class="ft__top">
+                <a routerLink="/" class="ft__logo">
+                    <img src="assets/images/logo-web.png" alt="Rapportmart" class="ft__logo-img">
+                </a>
+                <p class="ft__tagline">Premium fashion for every occasion. Quality craftsmanship, modern designs.</p>
+                <div class="ft__socials">
+                    <a href="https://www.facebook.com" target="_blank"><i class="ri-facebook-fill"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="ri-instagram-fill"></i></a>
+                    <a href="https://x.com" target="_blank"><i class="ri-twitter-x-fill"></i></a>
+                    <a href="https://www.pinterest.com" target="_blank"><i class="ri-pinterest-fill"></i></a>
+                    <a href="https://www.youtube.com" target="_blank"><i class="ri-youtube-fill"></i></a>
+                </div>
+            </div>
+
+            <div class="ft__divider"></div>
+
+            <!-- Links row -->
+            <div class="ft__link-row">
+                <a routerLink="/page/about-us">About Us</a>
+                <a routerLink="/Contact-Us">Contact Us</a>
+                <a routerLink="/shipping-policy">Shipping Policy</a>
+                <a routerLink="/return-policy">Return Policy</a>
+                <a routerLink="/term-condition">Terms & Conditions</a>
+                <a routerLink="/privacy-policy">Privacy Policy</a>
+                <a routerLink="/refund-and-cancellation">Refund & Cancellation</a>
+            </div>
+
+            <!-- Company name -->
+            <div class="ft__company-name">RAPPORTMART ECOMMERCE PRIVATE LIMITED</div>
+
+            <!-- Contact row -->
+            <div class="ft__contact-row">
+                <div class="ft__contact-item">
+                    <i class="ri-mail-line"></i>
+                    <a href="mailto:info&#64;rapportmart.com">info&#64;rapportmart.com</a>
+                </div>
+                <span class="ft__dot"></span>
+                <div class="ft__contact-item">
+                    <i class="ri-phone-line"></i>
+                    <a href="tel:+919286845826">+91 92868 45826</a>
+                </div>
+                <span class="ft__dot"></span>
+                <div class="ft__contact-item">
+                    <i class="ri-map-pin-line"></i>
+                    <span>157KH, Baharhadood Unnamed Road Sarsawan Saharanpur, Uttar Pradesh – 247232 India</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="ft__bottom">
+        <div class="container-fluid-lg">
+            <div class="ft__bottom-inner" *ngIf="data?.footer?.footer_copyright">
+                <app-footer-copyright [data]="data"></app-footer-copyright>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top-btn" [class.show]="showBackToTop" (click)="scrollToTop()" type="button"
+        title="Back to Top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+
+</footer>

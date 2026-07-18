@@ -1,0 +1,370 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+// Palette — Brand Colors
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$mint: #DFF5E1;
+$text: #333;
+$text-mid: #666;
+$text-muted: #999;
+
+// ── Product Card ──
+.pb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  // ── Close button (wishlist page) ──
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+
+    ::ng-deep .btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      padding: 0;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #fff;
+        transform: scale(1.1);
+      }
+
+      i {
+        font-size: 16px;
+        color: #555;
+      }
+    }
+  }
+
+  // ── Image Container ──
+  &__media {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: #f6f4f9;
+  }
+
+  // Badge pill
+  &__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 5;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+
+    &--sale { background: $pink-dark; }
+    &--feat { background: $lavender; color: $text; }
+    &--trend { background: $mint; color: $text; }
+  }
+
+  // Floating wishlist
+  &__wish {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s;
+
+    i {
+      font-size: 18px;
+      color: #555;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+
+    &:hover {
+      background: $pink;
+      transform: scale(1.12);
+    }
+
+    &.is-active i {
+      color: $pink-dark;
+    }
+  }
+
+  // Image
+  &__img-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  &__media:hover &__img {
+    transform: scale(1.06);
+  }
+
+  // Quick View slide-up bar
+  &__peek {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    text-align: center;
+    background: rgba($text, 0.72);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 4;
+
+    i {
+      margin-right: 6px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  }
+
+  &__media:hover &__peek {
+    transform: translateY(0);
+  }
+
+  // ── Info Section ──
+  &__info {
+    padding: 14px 4px 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 2px;
+
+    @media (max-width: 767px) {
+      padding: 10px 2px 0;
+    }
+  }
+
+  &__brand {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: $pink-dark;
+  }
+
+  &__name-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text;
+    margin: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s;
+
+    @media (max-width: 767px) {
+      font-size: 13px;
+    }
+  }
+
+  &__name-link:hover &__name {
+    color: $pink-dark;
+  }
+
+  &__desc {
+    font-size: 12px;
+    color: $text-muted;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // Price
+  &__price {
+    margin-top: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  &__price-now {
+    font-size: 16px;
+    font-weight: 700;
+    color: $text;
+    line-height: 1;
+
+    @media (max-width: 767px) {
+      font-size: 15px;
+    }
+  }
+
+  &__price-was {
+    font-size: 12px;
+    color: $text-muted;
+    text-decoration: line-through;
+  }
+
+  // Add to Bag — outline button
+  &__cart {
+    margin-top: auto;
+    padding-top: 12px;
+
+    ::ng-deep app-product-cart-button {
+      width: 100%;
+
+      button {
+        width: 100%;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        border: 1.5px solid $text;
+        background: transparent;
+        color: $text;
+        cursor: pointer;
+        transition: all 0.25s ease;
+
+        &:hover {
+          background: $text;
+          border-color: $text;
+          color: $pink;
+        }
+
+        &:active {
+          background: #222;
+          border-color: #222;
+        }
+      }
+
+      // Qty box when item is in cart
+      .cart_qty.qty-box {
+        .input-group {
+          button {
+            background: $text !important;
+            border: none !important;
+            border-radius: 0 !important;
+            color: #fff !important;
+
+            i {
+              color: #fff !important;
+            }
+
+            &:hover {
+              background: $pink-dark !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ── Dark Mode ──
+html.dark {
+  .pb {
+    &__media {
+      background: #1e1e1e;
+    }
+
+    &__wish {
+      background: rgba(30, 30, 30, 0.82);
+
+      i { color: #aaa; }
+      &:hover { background: #2a2a2a; }
+      &.is-active i { color: $pink-dark; }
+    }
+
+    &__name { color: #eee; }
+    &__brand { color: $pink-dark; }
+    &__desc { color: #777; }
+    &__price-now { color: #fff; }
+
+    &__cart {
+      ::ng-deep app-product-cart-button button {
+        border-color: #555;
+        color: #ddd;
+
+        &:hover {
+          background: #fff;
+          border-color: #fff;
+          color: #222;
+        }
+      }
+    }
+
+    &__peek {
+      background: rgba(0, 0, 0, 0.75);
+    }
+  }
+}
+
+// ── RTL ──
+body.rtl {
+  .pb {
+    &__badge {
+      left: auto;
+      right: 12px;
+    }
+
+    &__wish {
+      right: auto;
+      left: 12px;
+    }
+
+    &__close {
+      right: auto;
+      left: 12px;
+    }
+
+    &__peek i {
+      margin-right: 0;
+      margin-left: 6px;
+    }
+  }
+}

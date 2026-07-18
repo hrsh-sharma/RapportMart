@@ -1,0 +1,83 @@
+<section class="ax">
+    <div class="ax__card ax__card--wide">
+        <div class="ax__logo">
+            <img src="assets/images/logo-web.png" alt="Rapportmart">
+        </div>
+
+        <h1 class="ax__title">Create Account</h1>
+        <p class="ax__sub">Fill in your details to get started</p>
+
+        <app-alert></app-alert>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="ax__form">
+            <div class="ax__field">
+                <label>Full Name</label>
+                <input type="text" formControlName="name" placeholder="Your full name"
+                    (keydown)="allowOnlyLetters($event)" (input)="sanitizeNameInput($event)" (paste)="sanitizeNamePaste($event)"
+                    [class.error]="form.controls['name'].touched && form.controls['name'].invalid">
+                <span class="ax__error" *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['required']">Name is required</span>
+                <span class="ax__error" *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['pattern']">Only letters and spaces</span>
+            </div>
+
+            <div class="ax__field">
+                <label>Email</label>
+                <input type="email" formControlName="email" placeholder="you@example.com"
+                    (input)="filterEmailCharacters($event)" pattern="[a-zA-Z0-9._\-+@]+"
+                    [class.error]="form.controls['email'].touched && form.controls['email'].invalid">
+                <span class="ax__error" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']">Email is required</span>
+                <span class="ax__error" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email']">Invalid email</span>
+            </div>
+
+            <div class="ax__field">
+                <label>Phone Number</label>
+                <div class="ax__phone-row">
+                    <select2 class="ax__country"
+                        [data]="codes" [templates]="template" formControlName="country_code">
+                        <ng-template #template let-data="data">
+                            <div class="ax__country-opt">
+                                <div class="iti-flag {{data?.class}}"></div>
+                                <span>{{data.code}}</span>
+                            </div>
+                        </ng-template>
+                    </select2>
+                    <input type="tel" formControlName="phone" placeholder="10-digit number" maxlength="10"
+                        (keydown)="allowOnlyDigits($event)" (input)="sanitizePhoneInput($event)" (paste)="sanitizePhonePaste($event)"
+                        [class.error]="form.controls['phone'].touched && form.controls['phone'].invalid">
+                </div>
+                <span class="ax__error" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">Phone is required</span>
+            </div>
+
+            <div class="ax__grid">
+                <div class="ax__field">
+                    <label>Password</label>
+                    <input type="password" formControlName="password" placeholder="Create password"
+                        [class.error]="form.controls['password'].touched && form.controls['password'].invalid">
+                    <span class="ax__error" *ngIf="form.controls['password'].touched && form.controls['password'].errors?.['required']">Required</span>
+                </div>
+                <div class="ax__field">
+                    <label>Confirm Password</label>
+                    <input type="password" formControlName="password_confirmation" placeholder="Confirm password"
+                        [class.error]="form.controls['password_confirmation'].touched && (form.controls['password_confirmation'].errors?.['required'] || passwordMatchError)">
+                    <span class="ax__error" *ngIf="passwordMatchError">Passwords don't match</span>
+                </div>
+            </div>
+
+            <div class="ax__field" *ngIf="reCaptcha">
+                <re-captcha formControlName="recaptcha"></re-captcha>
+            </div>
+
+            <label class="ax__check">
+                <input type="checkbox" [formControl]="tnc">
+                <span [class.text-danger]="tnc.touched && tnc.invalid">I agree to the <a routerLink="/term-condition">Terms</a> & <a routerLink="/privacy-policy">Privacy Policy</a></span>
+            </label>
+
+            <div class="ax__submit">
+                <app-button [id]="'sign_up_btn'" [disabled]="tnc.invalid || form.invalid" [class]="'ax__btn'">
+                    Sign Up <i class="ri-arrow-right-line"></i>
+                </app-button>
+            </div>
+        </form>
+
+        <p class="ax__switch">Already have an account? <a routerLink="/auth/login">Sign in</a></p>
+    </div>
+</section>

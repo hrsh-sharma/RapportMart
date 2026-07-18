@@ -1,0 +1,325 @@
+// Palette
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$mint: #DFF5E1;
+$text: #333;
+
+// =============================================
+// Newsletter
+// =============================================
+.ft__newsletter {
+  background: linear-gradient(135deg, $lavender 0%, $pink 100%);
+  padding: 48px 0;
+}
+
+.ft__nl-inner {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ft__nl-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: $text;
+  margin: 0 0 8px;
+}
+
+.ft__nl-desc {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.ft__nl-form {
+  display: flex;
+  border-radius: 50px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  input {
+    flex: 1;
+    padding: 14px 24px;
+    border: none;
+    font-size: 13px;
+    color: $text;
+    background: transparent;
+    min-width: 0;
+
+    &::placeholder { color: #aaa; }
+    &:focus { outline: none; }
+  }
+
+  button {
+    padding: 14px 28px;
+    border: none;
+    background: $text;
+    color: $pink;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    i { font-size: 16px; transition: transform 0.2s; }
+
+    &:hover:not(:disabled) {
+      background: $pink-dark;
+      color: #fff;
+      i { transform: translateX(3px); }
+    }
+
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+}
+
+.ft__nl-error {
+  font-size: 11px;
+  color: #c0392b;
+  margin-top: 8px;
+}
+
+// =============================================
+// Main Footer
+// =============================================
+.ft__main {
+  background: #faf8fb;
+  padding: 44px 0 36px;
+}
+
+// ── Top: logo + tagline + socials ──
+.ft__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.ft__logo-img {
+  height: 42px;
+  width: auto;
+}
+
+.ft__tagline {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ft__socials {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+
+  a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    text-decoration: none;
+    transition: all 0.25s;
+
+    i { font-size: 15px; }
+
+    &:hover {
+      background: $pink;
+      border-color: $pink;
+      color: $pink-dark;
+      transform: translateY(-3px);
+    }
+  }
+}
+
+// ── Divider ──
+.ft__divider {
+  height: 1px;
+  background: #ede9f3;
+  margin: 28px 0;
+}
+
+// ── Links row ──
+.ft__link-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin-bottom: 24px;
+
+  a {
+    font-size: 14px;
+    color: #777;
+    text-decoration: none;
+    transition: color 0.2s;
+    padding: 4px 0;
+
+    &:hover { color: $pink-dark; }
+  }
+}
+
+// ── Company name ──
+.ft__company-name {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: $pink-dark;
+  margin-bottom: 10px;
+}
+
+// ── Contact row ──
+.ft__contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+
+  &--sub {
+    margin-top: 10px;
+  }
+}
+
+.ft__contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  i {
+    font-size: 15px;
+    color: $pink-dark;
+  }
+
+  a, span {
+    font-size: 13px;
+    color: #999;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a:hover { color: $pink-dark; }
+}
+
+.ft__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #d0cdd8;
+  flex-shrink: 0;
+}
+
+// =============================================
+// Bottom Bar
+// =============================================
+.ft__bottom {
+  background: #faf8fb;
+  border-top: 1px solid #ede9f3;
+  padding: 16px 0;
+}
+
+.ft__bottom-inner {
+  text-align: center;
+
+  ::ng-deep h6,
+  ::ng-deep p {
+    font-size: 12px;
+    color: #bbb;
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+// =============================================
+// Back to Top
+// =============================================
+.back-to-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 1000;
+  width: 44px;
+  height: 44px;
+  background: #fff;
+  color: $text;
+  border: 1.5px solid #eee;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+
+  @media (max-width: 575px) { width: 38px; height: 38px; bottom: 14px; right: 14px; }
+
+  &.show { opacity: 1; visibility: visible; transform: scale(1); }
+
+  i { font-size: 20px; @media (max-width: 575px) { font-size: 16px; } }
+
+  &:hover {
+    background: $pink;
+    border-color: $pink-dark;
+    color: $pink-dark;
+    transform: translateY(-4px);
+  }
+}
+
+// =============================================
+// Responsive
+// =============================================
+@media (max-width: 767px) {
+  .ft__newsletter { padding: 36px 0; }
+  .ft__nl-title { font-size: 19px; }
+
+  .ft__nl-form {
+    flex-direction: column;
+    border-radius: 14px;
+
+    input { padding: 14px 20px; text-align: center; }
+    button { justify-content: center; border-radius: 0 0 14px 14px; }
+  }
+
+  .ft__main { padding: 36px 0 28px; }
+
+  .ft__link-row {
+    gap: 6px 20px;
+    a { font-size: 12px; }
+  }
+
+  .ft__contact-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ft__dot { display: none; }
+}
+
+// =============================================
+// SEO Content
+// =============================================
+.footer-seo {
+  padding: 28px 0;
+  background: #fff;
+}
+
+.seo-content {
+  h2, .seo-title { font-size: 17px; font-weight: 600; color: $text; margin: 0 0 10px; }
+  h3 { font-size: 14px; font-weight: 600; color: $text; margin: 16px 0 6px; }
+  p { font-size: 12px; color: #777; line-height: 1.7; margin: 0 0 8px; }
+}

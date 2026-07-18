@@ -1,0 +1,98 @@
+<header class="gf-header" [class.sticky-active]="stick && sticky" [ngClass]="!stick && sticky ? class : ''">
+
+    <!-- Row 1: Utility Bar -->
+    <div class="gf-utilbar">
+        <div class="container-fluid-lg">
+            <div class="gf-utilbar-inner">
+                <div class="gf-utilbar-links">
+                    <a routerLink="/about-us" class="gf-util-link">About Us</a>
+                    <a routerLink="/Contact-Us" class="gf-util-link">Help</a>
+                </div>
+                <span class="gf-utilbar-promo">
+                    New Arrivals Dropping Every Week &#10045;
+                </span>
+                <div class="gf-utilbar-links">
+                    <a routerLink="/collections" class="gf-util-link">Shop All</a>
+                    <a routerLink="/order-tracking" class="gf-util-link">My Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row 2: Nav LEFT | Logo CENTER | Icons RIGHT -->
+    <div class="gf-hero-bar" [class.gf-stuck]="stick && sticky">
+        <div class="container-fluid-lg">
+            <div class="gf-hero-inner">
+
+                <!-- LEFT: Navigation (desktop) / Hamburger (mobile) -->
+                <div class="gf-hero-left">
+                    <div class="d-xl-none gf-hamburger">
+                        <app-navbar-menu-button (activeMenu)="toggle($event)" [show]="active"></app-navbar-menu-button>
+                    </div>
+                    <nav class="gf-desktop-nav d-none d-xl-flex navbar navbar-expand-xl navbar-light">
+                        <app-menu></app-menu>
+                    </nav>
+                </div>
+
+                <!-- CENTER: Logo -->
+                <div class="gf-hero-center">
+                    <app-logo [textClass]="'txt-theme f-w-600'" [data]="data" [logo]="logo"></app-logo>
+                </div>
+
+                <!-- RIGHT: Search toggle + Icons -->
+                <div class="gf-hero-right">
+                    <button class="gf-icon-btn gf-search-toggle" (click)="toggleSearch()" [class.is-active]="searchOpen">
+                        <i class="ri-search-line" *ngIf="!searchOpen"></i>
+                        <i class="ri-close-line" *ngIf="searchOpen"></i>
+                    </button>
+                    <div class="gf-icon-btn d-none d-sm-flex">
+                        <app-header-wishlist></app-header-wishlist>
+                    </div>
+                    <div class="gf-icon-btn">
+                        <app-header-cart></app-header-cart>
+                    </div>
+                    <div class="gf-icon-btn">
+                        <app-my-account></app-my-account>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row 3: Expandable Search Drawer -->
+    <div class="gf-search-drawer" [class.is-open]="searchOpen">
+        <div class="container-fluid-lg">
+            <div class="gf-search-inner">
+                <app-box-search [style]="'classic'"></app-box-search>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div class="d-xl-none">
+        <div class="gf-mobile-panel offcanvas offcanvas-collapse" [class.show]="active">
+            <div class="gf-mob-head">
+                <app-logo [textClass]="'txt-theme f-w-600'" [data]="data" [logo]="logo"></app-logo>
+                <button class="gf-mob-close" (click)="toggle(false)">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="gf-mob-search">
+                <app-box-search [style]="'classic'"></app-box-search>
+            </div>
+            <div class="gf-mob-nav">
+                <app-menu></app-menu>
+            </div>
+            <div class="gf-mob-foot">
+                <a routerLink="/Contact-Us" class="gf-mob-foot-link">
+                    <i class="ri-customer-service-2-line"></i> Help & Support
+                </a>
+                <a routerLink="/order-tracking" class="gf-mob-foot-link">
+                    <i class="ri-map-pin-line"></i> Track Order
+                </a>
+            </div>
+        </div>
+        <div class="offcanvas-backdrop fade" *ngIf="active" [class.show]="active" (click)="toggle(false)"></div>
+    </div>
+
+</header>

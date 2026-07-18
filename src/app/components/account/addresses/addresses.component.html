@@ -1,0 +1,50 @@
+<div class="addr">
+    <!-- Header -->
+    <div class="addr__header">
+        <div>
+            <h1 class="addr__title">{{ 'Saved Address' | translate }}</h1>
+            <p class="addr__sub">Manage your delivery addresses</p>
+        </div>
+        <button class="addr__add-btn" (click)="AddressModal.openModal()">
+            <i class="ri-add-line"></i> Add Address
+        </button>
+    </div>
+
+    <!-- Address Cards -->
+    <div class="addr__list" *ngIf="(user$ | async)?.address?.length">
+        <div class="addr__card" *ngFor="let address of (user$ | async)?.address">
+            <div class="addr__card-body">
+                <div class="addr__card-top">
+                    <span class="addr__label">{{ address?.title }}</span>
+                </div>
+                <p class="addr__text">
+                    <span *ngIf="address?.flat_no">{{ address?.flat_no }}, </span>
+                    <span *ngIf="address?.building">{{ address?.building }}, </span>
+                    <span *ngIf="address?.road">{{ address?.road }}, </span>
+                    {{ address?.street }}, {{ address?.city }}, {{ address?.area }} {{ address?.pincode }}
+                </p>
+                <p class="addr__phone" *ngIf="address?.phone">
+                    <i class="ri-phone-line"></i> +{{ address?.country_code }} {{ address?.phone }}
+                </p>
+            </div>
+            <div class="addr__card-actions">
+                <button class="addr__btn-edit" (click)="AddressModal.openModal(address)">
+                    <i class="ri-edit-line"></i> Edit
+                </button>
+                <button class="addr__btn-delete" (click)="DeleteModal.openModal('delete', address)">
+                    <i class="ri-delete-bin-line"></i> Remove
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="addr__empty" *ngIf="!(user$ | async)?.address?.length">
+        <i class="ri-map-pin-line"></i>
+        <h4>No addresses saved yet</h4>
+        <p>Add a delivery address to get started.</p>
+    </div>
+</div>
+
+<address-modal #addressModal></address-modal>
+<app-delete-modal #deleteModal (deleteItem)="delete($event.actionToPerform,$event.data)"></app-delete-modal>

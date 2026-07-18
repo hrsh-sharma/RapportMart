@@ -1,0 +1,97 @@
+<!-- Hero -->
+<section class="ct-hero">
+    <div class="container-fluid-lg">
+        <div class="ct-hero__inner">
+            <h1 class="ct-hero__title">Let's Talk</h1>
+            <p class="ct-hero__desc">Have a question or feedback? We're here to help.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Cards -->
+<section class="ct-cards">
+    <div class="container-fluid-lg">
+        <div class="ct-cards__grid">
+            <a href="mailto:info&#64;rapportmart.com" class="ct-card">
+                <div class="ct-card__icon ct-card__icon--pink"><i class="ri-mail-line"></i></div>
+                <h4>Email Us</h4>
+                <span>info&#64;rapportmart.com</span>
+            </a>
+            <a href="tel:+919286845826" class="ct-card">
+                <div class="ct-card__icon ct-card__icon--lavender"><i class="ri-phone-line"></i></div>
+                <h4>Call Us</h4>
+                <span>+91 92868 45826</span>
+            </a>
+            <div class="ct-card">
+                <div class="ct-card__icon ct-card__icon--mint"><i class="ri-map-pin-line"></i></div>
+                <h4>Visit Us</h4>
+                <span>157KH, Baharhadood Unnamed Road Sarsawan Saharanpur, Uttar Pradesh – 247232 India</span>
+            </div>
+            <div class="ct-card">
+                <div class="ct-card__icon ct-card__icon--peach"><i class="ri-time-line"></i></div>
+                <h4>Working Hours</h4>
+                <span>Mon – Sat, 10 AM – 7 PM</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Form Section -->
+<section class="ct-form-section">
+    <div class="container-fluid-lg">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="ct-form-card">
+                    <h2 class="ct-form-card__title">Send us a Message</h2>
+                    <p class="ct-form-card__sub">Fill out the form and our team will get back to you within 24 hours.</p>
+
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="ct-form">
+                        <div class="ct-form__field">
+                            <label>Full Name</label>
+                            <input type="text" formControlName="name" placeholder="Your name"
+                                (input)="filterSpecialCharacters($event, 'name')" pattern="[a-zA-Z\s]+"
+                                [class.error]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+                            <span class="ct-form__error"
+                                *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">Only letters
+                                and spaces allowed</span>
+                        </div>
+
+                        <div class="ct-form__row">
+                            <div class="ct-form__field">
+                                <label>Email</label>
+                                <input type="email" formControlName="email" placeholder="you@example.com"
+                                    (input)="filterEmailCharacters($event)" pattern="[a-zA-Z0-9._\-+@]+"
+                                    [class.error]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                                <span class="ct-form__error"
+                                    *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">Enter a
+                                    valid email</span>
+                            </div>
+                            <div class="ct-form__field">
+                                <label>Phone</label>
+                                <input type="tel" formControlName="phone" placeholder="10-digit number"
+                                    (input)="filterPhoneNumber($event)" maxlength="10" pattern="[0-9]{10}"
+                                    [class.error]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched">
+                                <span class="ct-form__error"
+                                    *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched">Must be
+                                    10 digits</span>
+                            </div>
+                        </div>
+
+                        <div class="ct-form__field">
+                            <label>Message</label>
+                            <textarea formControlName="message" placeholder="How can we help you?" rows="5"
+                                [class.error]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"></textarea>
+                            <span class="ct-form__error"
+                                *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">Message
+                                is required</span>
+                        </div>
+
+                        <button type="submit" class="ct-form__submit" [disabled]="contactForm.invalid">
+                            Send Message <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

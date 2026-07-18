@@ -1,0 +1,63 @@
+<div class="ord">
+    <!-- Header -->
+    <div class="ord__header">
+        <div>
+            <h1 class="ord__title">{{ 'My Orders' | translate }}</h1>
+            <p class="ord__sub">View and track all your orders</p>
+        </div>
+    </div>
+
+    <!-- Orders List -->
+    <div class="ord__list" *ngIf="(order$ | async)?.data?.length">
+        <div class="ord__card" *ngFor="let order of (order$ | async)?.data">
+            <div class="ord__card-top">
+                <div class="ord__card-info">
+                    <span class="ord__number">#{{ order.order_number }}</span>
+                    <span class="ord__date">{{ order?.created_at | date: 'dd MMM yyyy' }}</span>
+                </div>
+                <span class="ord__status ord__status--{{ order?.payment_status?.toLowerCase() }}">
+                    {{ order?.payment_status | titleCase }}
+                </span>
+            </div>
+
+            <div class="ord__card-body">
+                <div class="ord__detail">
+                    <span class="ord__detail-label">Amount</span>
+                    <span class="ord__detail-value ord__amount">{{ order?.total | currencySymbol }}</span>
+                </div>
+                <div class="ord__detail">
+                    <span class="ord__detail-label">Payment</span>
+                    <span class="ord__detail-value">
+                        <ng-container [ngSwitch]="order?.payment_method">
+                            <span *ngSwitchCase="'Rapportmart_nabu'">UPI Intent</span>
+                            <span *ngSwitchCase="'pay_drill'">Cash Free</span>
+                            <span *ngSwitchCase="'star_mangal'">UPI App</span>
+                            <span *ngSwitchDefault>{{ order?.payment_method | titleCase }}</span>
+                        </ng-container>
+                    </span>
+                </div>
+            </div>
+
+            <a [routerLink]="['/account/order/details', order.order_number]" class="ord__view-link">
+                View Details <i class="ri-arrow-right-s-line"></i>
+            </a>
+        </div>
+
+        <!-- Pagination -->
+        <div class="ord__pagination" *ngIf="(order$ | async)?.data?.length">
+            <app-pagination
+                [total]="(order$ | async)?.total || 0"
+                [currentPage]="filter['page']"
+                [pageSize]="filter['paginate']"
+                (setPage)="setPaginate($event)">
+            </app-pagination>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="ord__empty" *ngIf="!(order$ | async)?.data?.length">
+        <i class="ri-shopping-bag-line"></i>
+        <h4>No orders yet</h4>
+        <p>Your order history will appear here.</p>
+    </div>
+</div>

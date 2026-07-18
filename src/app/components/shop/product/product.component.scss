@@ -1,0 +1,257 @@
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$mint: #DFF5E1;
+$text: #333;
+
+// =============================================
+// Product Page — Brand palette overrides
+// =============================================
+
+:host ::ng-deep {
+
+  // ── Product Title ──
+  .product-title h2 {
+    color: $text !important;
+  }
+
+  // ── Price ──
+  .product-price {
+    h3 {
+      color: $text !important;
+    }
+  }
+
+  // ── Variant / Attribute buttons ──
+  .variation-box {
+    .selection-section {
+      .form-check {
+        input:checked + label,
+        input:checked + .variant-button {
+          background: $text !important;
+          border-color: $text !important;
+          color: #fff !important;
+        }
+      }
+
+      .form-check-label,
+      .variant-button {
+        border-color: #e8e4ef !important;
+        border-radius: 10px !important;
+        color: $text !important;
+        transition: all 0.2s !important;
+
+        &:hover {
+          border-color: $pink-dark !important;
+        }
+      }
+    }
+  }
+
+  // ── Qty Box ──
+  .qty-box {
+    border: 1.5px solid #e8e4ef !important;
+    border-radius: 50px !important;
+    overflow: hidden !important;
+
+    .input-group {
+      button {
+        background: transparent !important;
+        border: none !important;
+        color: $text !important;
+        width: 40px !important;
+
+        &:hover {
+          background: $lavender !important;
+        }
+
+        i {
+          color: $text !important;
+        }
+      }
+
+      input {
+        border: none !important;
+        text-align: center !important;
+        font-weight: 600 !important;
+        color: $text !important;
+        background: transparent !important;
+      }
+    }
+  }
+
+  // ── Wishlist button ──
+  .wishlist-btn-group {
+    .wishlist-btn,
+    a[class*="wishlist"] {
+      background: #faf8fb !important;
+      border: 1.5px solid #e8e4ef !important;
+      border-radius: 50px !important;
+      padding: 10px 14px !important;
+      transition: all 0.2s !important;
+
+      i {
+        color: #888 !important;
+        font-size: 20px !important;
+      }
+
+      &:hover {
+        background: $pink !important;
+        border-color: $pink !important;
+
+        i {
+          color: $pink-dark !important;
+        }
+      }
+    }
+  }
+
+  // ── Add to Cart button ──
+  .buy-box,
+  .product-buttons {
+    .btn-cart,
+    .btn.btn-animation,
+    a.btn-animation,
+    button.btn-animation {
+      background: transparent !important;
+      border: 1.5px solid $text !important;
+      border-radius: 12px !important;
+      color: $text !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      letter-spacing: 0.8px !important;
+      text-transform: uppercase !important;
+      padding: 14px 24px !important;
+      transition: all 0.25s !important;
+
+      i {
+        color: $text !important;
+      }
+
+      &:hover {
+        background: $text !important;
+        color: $pink !important;
+
+        i {
+          color: $pink !important;
+        }
+      }
+
+      &::after {
+        display: none !important;
+      }
+    }
+
+    // Buy Now button
+    .btn-buy,
+    a.buy-btn,
+    button.buy-btn,
+    .btn.theme-bg-color {
+      background: $text !important;
+      border: 1.5px solid $text !important;
+      border-radius: 12px !important;
+      color: $pink !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      letter-spacing: 0.8px !important;
+      text-transform: uppercase !important;
+      padding: 14px 24px !important;
+      transition: all 0.25s !important;
+
+      i {
+        color: $pink !important;
+      }
+
+      &:hover {
+        background: $pink-dark !important;
+        border-color: $pink-dark !important;
+        color: #fff !important;
+        box-shadow: 0 6px 20px rgba($pink-dark, 0.3) !important;
+
+        i {
+          color: #fff !important;
+        }
+      }
+
+      &::after {
+        display: none !important;
+      }
+    }
+  }
+
+  // ── Accordion (Product Info, Delivery) ──
+  .accordion-item {
+    border-color: #f0edf5 !important;
+
+    .accordion-button {
+      color: $text !important;
+      font-weight: 700 !important;
+
+      &:not(.collapsed) {
+        color: $pink-dark !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+      &:focus {
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  // ── Sale badge ──
+  .label-tag,
+  .product-label-tag {
+    background: $pink-dark !important;
+    border-radius: 6px !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  // ── Share icons ──
+  .share-icons {
+    a, li a {
+      color: #bbb !important;
+      transition: color 0.2s !important;
+
+      &:hover {
+        color: $pink-dark !important;
+      }
+    }
+  }
+
+  // ── Tab section ──
+  .nav-tabs {
+    border-bottom-color: #f0edf5 !important;
+
+    .nav-link {
+      color: #888 !important;
+      font-weight: 600 !important;
+      border: none !important;
+      border-bottom: 2px solid transparent !important;
+
+      &.active {
+        color: $pink-dark !important;
+        border-bottom-color: $pink-dark !important;
+        background: transparent !important;
+      }
+
+      &:hover {
+        color: $text !important;
+      }
+    }
+  }
+
+  // ── Sticky checkout bar ──
+  .sticky-bottom-cart {
+    background: #fff !important;
+    border-top: 1px solid #f0edf5 !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06) !important;
+
+    .btn {
+      border-radius: 50px !important;
+    }
+  }
+}

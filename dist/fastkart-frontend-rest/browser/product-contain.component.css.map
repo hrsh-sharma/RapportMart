@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/shop/product/product-details/widgets/product-contain/product-contain.component.scss"],
+  "sourcesContent": [".quantity-wishlist-section {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 15px;\r\n\r\n    .wishlist-btn-group {\r\n        .wishlist-btn {\r\n            background-color: var(--theme-color-2);\r\n            padding: 10px 15px;\r\n            border-radius: 5px;\r\n            transition: all 0.3s ease;\r\n\r\n            i {\r\n                font-size: 20px;\r\n                color: var(--theme-color);\r\n            }\r\n\r\n            &:hover {\r\n                background-color: var(--theme-color);\r\n\r\n                i {\r\n                    color: white;\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"],
+  "mappings": ";AAAA,CAAA;AACI,WAAA;AACA,eAAA;AACA,OAAA;;AAGI,CANR,0BAMQ,CAAA,mBAAA,CAAA;AACI,oBAAA,IAAA;AACA,WAAA,KAAA;AACA,iBAAA;AACA,cAAA,IAAA,KAAA;;AAEA,CAZZ,0BAYY,CANJ,mBAMI,CANJ,aAMI;AACI,aAAA;AACA,SAAA,IAAA;;AAGJ,CAjBZ,0BAiBY,CAXJ,mBAWI,CAXJ,YAWI;AACI,oBAAA,IAAA;;AAEA,CApBhB,0BAoBgB,CAdR,mBAcQ,CAdR,YAcQ,OAAA;AACI,SAAA;;",
+  "names": []
+}

@@ -1,0 +1,128 @@
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$text: #333;
+
+.wl {
+  padding: 40px 0 60px;
+
+  // ── Header ──
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0edf5;
+
+    @media (max-width: 575px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: $text;
+    margin: 0 0 4px;
+  }
+
+  &__sub {
+    font-size: 13px;
+    color: #999;
+    margin: 0;
+
+    strong {
+      color: $pink-dark;
+    }
+  }
+
+  &__shop-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $text;
+    text-decoration: none;
+    padding: 10px 24px;
+    border: 1.5px solid $text;
+    border-radius: 50px;
+    transition: all 0.25s;
+
+    i { font-size: 15px; transition: transform 0.2s; }
+
+    &:hover {
+      background: $text;
+      color: $pink;
+      i { transform: translateX(3px); }
+    }
+  }
+
+  // ── Empty State ──
+  &__empty {
+    text-align: center;
+    padding: 80px 20px;
+
+    @media (max-width: 575px) { padding: 50px 16px; }
+  }
+
+  &__empty-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $lavender, $pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+
+    i {
+      font-size: 38px;
+      color: $pink-dark;
+    }
+  }
+
+  &__empty-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: $text;
+    margin: 0 0 8px;
+  }
+
+  &__empty-desc {
+    font-size: 14px;
+    color: #999;
+    margin: 0 auto 28px;
+    max-width: 340px;
+    line-height: 1.6;
+  }
+
+  &__empty-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 32px;
+    background: $text;
+    color: $pink;
+    border: none;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+
+    i { font-size: 16px; transition: transform 0.2s; }
+
+    &:hover {
+      background: $pink-dark;
+      color: #fff;
+      box-shadow: 0 6px 20px rgba($pink-dark, 0.3);
+      i { transform: translateX(4px); }
+    }
+  }
+}

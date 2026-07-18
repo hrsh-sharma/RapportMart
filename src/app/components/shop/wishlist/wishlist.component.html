@@ -1,0 +1,51 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<section class="wl">
+    <div class="container-fluid-lg">
+        <!-- Header -->
+        <div class="wl__header">
+            <div>
+                <h1 class="wl__title">My Wishlist</h1>
+                <p class="wl__sub" *ngIf="(wishlistItems$ | async)?.data?.length">{{ (wishlistItems$ | async)?.data?.length }} saved items</p>
+            </div>
+            <a [routerLink]="['/collections']" class="wl__shop-btn" *ngIf="(wishlistItems$ | async)?.data?.length">
+                Continue Shopping <i class="ri-arrow-right-line"></i>
+            </a>
+        </div>
+
+        <!-- Skeleton -->
+        <ng-container *ngIf="wishlistService?.skeletonLoader else productContent">
+            <div class="row g-3">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-6" *ngFor="let item of skeletonItems">
+                    <app-skeleton-product-box></app-skeleton-product-box>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- Product Grid -->
+        <ng-template #productContent>
+            <div class="row g-3" *ngIf="(wishlistItems$ | async)?.data?.length" [ngClass]="{
+                'product_border': (themeOption$ | async)?.product?.full_border || (themeOption$ | async)?.product?.product_box_border,
+                'product_img_bg': (themeOption$ | async)?.product?.image_bg,
+                'full_bg': (themeOption$ | async)?.product?.product_box_bg }">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-6 product-box-contain"
+                    *ngFor="let product of (wishlistItems$ | async)?.data">
+                    <app-product-box [product]="product" [close]="true" [class]="'product-box-3'" [style]="'horizontal'">
+                    </app-product-box>
+                </div>
+            </div>
+        </ng-template>
+
+        <!-- Empty State -->
+        <div class="wl__empty" *ngIf="!(wishlistItems$ | async)?.data?.length && !wishlistService.skeletonLoader">
+            <div class="wl__empty-icon">
+                <i class="ri-heart-3-line"></i>
+            </div>
+            <h2 class="wl__empty-title">Your wishlist is empty</h2>
+            <p class="wl__empty-desc">Save the items you love and come back to them anytime.</p>
+            <a [routerLink]="['/collections']" class="wl__empty-btn">
+                Start Exploring <i class="ri-arrow-right-line"></i>
+            </a>
+        </div>
+    </div>
+</section>

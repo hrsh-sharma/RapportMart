@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/shared/components/widgets/categories/categories.component.scss"],
+  "sourcesContent": [".non-clickable {\r\n  cursor: default;\r\n  pointer-events: none;\r\n  opacity: 0.6;\r\n  \r\n  &:hover {\r\n    text-decoration: none;\r\n  }\r\n}\r\n\r\n"],
+  "mappings": ";AAAA,CAAA;AACE,UAAA;AACA,kBAAA;AACA,WAAA;;AAEA,CALF,aAKE;AACE,mBAAA;;",
+  "names": []
+}

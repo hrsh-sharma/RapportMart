@@ -1,0 +1,438 @@
+// Palette
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$mint: #DFF5E1;
+$text: #333;
+$text-mid: #666;
+$text-muted: #999;
+
+// ── Modal shell ──
+::ng-deep .cart-popup-modal {
+  .modal-dialog {
+    max-width: 720px;
+    margin: 2rem auto;
+
+    .modal-content {
+      border: none;
+      border-radius: 18px;
+      box-shadow: 0 28px 72px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+    }
+  }
+}
+
+// ── Card wrapper ──
+.cpm {
+  position: relative;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+
+  // Close button — top-right, subtle
+  &__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 20;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    color: $text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    i { font-size: 18px; }
+
+    &:hover {
+      background: $pink;
+      transform: scale(1.1);
+    }
+  }
+}
+
+// ── Side-by-side layout ──
+.cpm__layout {
+  display: grid;
+  grid-template-columns: 44% 1fr;
+  min-height: 420px;
+}
+
+// ── Left: Image ──
+.cpm__gallery {
+  background: #f6f4f9;
+  overflow: hidden;
+  position: relative;
+}
+
+.cpm__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+// ── Right: Details ──
+.cpm__details {
+  padding: 28px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+.cpm__brand {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: $pink-dark;
+}
+
+.cpm__name {
+  font-size: 18px;
+  font-weight: 700;
+  color: $text;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.cpm__desc {
+  font-size: 12.5px;
+  color: $text-muted;
+  margin: 2px 0 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Price + Stock
+.cpm__price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0edf5;
+}
+
+.cpm__price {
+  font-size: 22px;
+  font-weight: 700;
+  color: $text;
+}
+
+.cpm__stock {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #3a7d44;
+  background: $mint;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+// ── Attributes ──
+.cpm__attr {
+  margin-top: 10px;
+}
+
+.cpm__attr-label {
+  font-size: 12.5px;
+  color: $text-mid;
+  display: block;
+  margin-bottom: 8px;
+
+  strong {
+    color: $text;
+  }
+}
+
+.cpm__attr-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cpm__attr-btn {
+  min-width: 44px;
+  height: 36px;
+  border-radius: 20px;
+  border: 1.5px solid #e4e0ec;
+  background: #fff;
+  color: $text;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  padding: 0 14px;
+
+  &:hover {
+    border-color: $pink-dark;
+    background: #fef8f9;
+  }
+
+  &.active {
+    background: $text;
+    color: #fff;
+    border-color: $text;
+  }
+
+  &[data-style="circle"] {
+    border-radius: 50%;
+    width: 36px;
+    padding: 0;
+  }
+
+  &[data-style="color"] {
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  }
+}
+
+// ── Actions bar ──
+.cpm__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #f0edf5;
+}
+
+// Quantity stepper
+.cpm__qty {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e4e0ec;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #faf8fb;
+
+  button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    color: $text;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+
+    &:hover {
+      background: $lavender;
+    }
+
+    i { font-size: 14px; }
+  }
+
+  span {
+    width: 36px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text;
+  }
+}
+
+// Wishlist heart
+.cpm__wish {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1.5px solid #e4e0ec;
+  background: #fff;
+  color: $text-mid;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: $pink-dark;
+    background: $pink;
+    color: $pink-dark;
+  }
+
+  &.is-active {
+    color: $pink-dark;
+    border-color: $pink-dark;
+    background: $pink;
+  }
+}
+
+// Add to Bag
+.cpm__add {
+  flex: 1;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background: $text;
+  color: $pink;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &:hover {
+    background: $pink-dark;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba($pink-dark, 0.35);
+  }
+
+  &:disabled {
+    background: #ccc;
+    color: #fff;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+// ── Mobile: stack vertically ──
+@media (max-width: 575px) {
+  ::ng-deep .cart-popup-modal .modal-dialog {
+    max-width: 94%;
+    margin: 1rem auto;
+  }
+
+  .cpm__layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .cpm__gallery {
+    max-height: 300px;
+  }
+
+  .cpm__img {
+    height: 300px;
+  }
+
+  .cpm__details {
+    padding: 20px 20px 22px;
+  }
+
+  .cpm__name {
+    font-size: 16px;
+  }
+
+  .cpm__price {
+    font-size: 20px;
+  }
+
+  .cpm__actions {
+    flex-wrap: wrap;
+
+    .cpm__add {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+}
+
+// ── Dark Mode ──
+html.dark {
+  .cpm {
+    background: #1a1a1e;
+  }
+
+  .cpm__close {
+    background: rgba(30, 30, 30, 0.85);
+    color: #ccc;
+
+    &:hover { background: #333; }
+  }
+
+  .cpm__gallery {
+    background: #222;
+  }
+
+  .cpm__name { color: #eee; }
+  .cpm__desc { color: #777; }
+  .cpm__brand { color: $pink-dark; }
+  .cpm__price { color: #fff; }
+
+  .cpm__price-row,
+  .cpm__actions {
+    border-color: #2a2a2e;
+  }
+
+  .cpm__stock {
+    background: rgba(58, 125, 68, 0.15);
+    color: #6dbe7a;
+  }
+
+  .cpm__attr-label {
+    color: #888;
+    strong { color: #ddd; }
+  }
+
+  .cpm__attr-btn {
+    border-color: #333;
+    background: #222;
+    color: #ccc;
+
+    &:hover { border-color: $pink-dark; background: #2a2028; }
+    &.active { background: #eee; color: #222; border-color: #eee; }
+  }
+
+  .cpm__qty {
+    border-color: #333;
+    background: #222;
+
+    button {
+      color: #ccc;
+      &:hover { background: #333; }
+    }
+
+    span { color: #eee; }
+  }
+
+  .cpm__wish {
+    border-color: #333;
+    background: #222;
+    color: #888;
+
+    &:hover, &.is-active {
+      border-color: $pink-dark;
+      color: $pink-dark;
+      background: rgba($pink-dark, 0.12);
+    }
+  }
+
+  .cpm__add {
+    background: #eee;
+    color: #222;
+
+    &:hover {
+      background: $pink-dark;
+      color: #fff;
+    }
+  }
+}

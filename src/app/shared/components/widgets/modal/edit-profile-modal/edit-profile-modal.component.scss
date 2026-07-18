@@ -1,0 +1,167 @@
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$text: #333;
+
+:host ::ng-deep {
+  .modal-content {
+    border: none !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.16) !important;
+  }
+  .modal-header, .modal-footer, .modal-body {
+    border: none !important;
+    padding: 0 !important;
+  }
+}
+
+.ep-modal { font-family: 'Poppins', sans-serif; }
+
+// Header
+.ep-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 28px 32px 0;
+  gap: 16px;
+}
+
+.ep-title { font-size: 20px; font-weight: 700; color: $text; margin-bottom: 2px; }
+.ep-subtitle { font-size: 13px; color: #999; margin: 0; }
+
+.ep-close {
+  width: 36px; height: 36px; border-radius: 50%; border: none;
+  background: #f5f2f8; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; transition: all 0.2s;
+  i { font-size: 20px; color: #777; }
+  &:hover { background: $pink; i { color: $pink-dark; } }
+}
+
+// Body
+.ep-body { padding: 28px 32px; }
+
+.ep-field {
+  margin-bottom: 20px;
+  &:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    padding: 13px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: $text;
+    background: #faf8fb;
+    border: 1.5px solid #e8e4ef;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &::placeholder { color: #bbb; }
+    &:focus { background: #fff; border-color: $pink-dark; box-shadow: 0 0 0 3px rgba($pink-dark, 0.08); }
+    &.error { border-color: #e53e3e; background: #fffafa; }
+  }
+
+  .ep-error {
+    display: block;
+    font-size: 12px;
+    color: #e53e3e;
+    margin-top: 5px;
+  }
+}
+
+// Phone row
+.ep-phone-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.ep-country-select {
+  flex-shrink: 0;
+  width: 110px;
+
+  ::ng-deep {
+    .select2-container {
+      width: 100% !important;
+
+      .select2-selection {
+        height: 46px !important;
+        border: 1.5px solid #e8e4ef !important;
+        border-radius: 10px !important;
+        background: #faf8fb !important;
+        display: flex !important;
+        align-items: center !important;
+
+        &:focus-within {
+          border-color: $pink-dark !important;
+          background: #fff !important;
+        }
+      }
+
+      .select2-selection__rendered {
+        padding: 0 10px !important;
+        line-height: 46px !important;
+      }
+    }
+  }
+}
+
+.ep-country-opt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  .iti-flag { width: 18px; height: 13px; }
+}
+
+.ep-phone-row input[type="tel"] { flex: 1; }
+
+// Footer
+.ep-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px 32px 28px;
+  border-top: 1px solid #f0edf5;
+}
+
+.ep-btn-cancel {
+  padding: 11px 24px;
+  border: 1.5px solid #e8e4ef;
+  border-radius: 50px;
+  background: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover { border-color: $text; color: $text; }
+}
+
+::ng-deep .ep-btn-save,
+::ng-deep .ep-btn-save button {
+  padding: 11px 28px !important;
+  border: none !important;
+  border-radius: 50px !important;
+  background: $text !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: $pink !important;
+  cursor: pointer !important;
+  transition: all 0.25s !important;
+  &:hover { background: $pink-dark !important; color: #fff !important; box-shadow: 0 4px 16px rgba($pink-dark, 0.3) !important; }
+}

@@ -1,0 +1,62 @@
+<div class="db">
+    <!-- Welcome Banner -->
+    <div class="db__banner">
+        <div class="db__banner-content">
+            <span class="db__wave">👋</span>
+            <div>
+                <h1 class="db__name">{{ (user$ | async)?.name | titleCase }}</h1>
+                <p class="db__email">{{ (user$ | async)?.email }}</p>
+            </div>
+        </div>
+        <div class="db__banner-actions">
+            <button class="db__edit" (click)="ProfileModal.openModal()">
+                <i class="ri-pencil-line"></i> Edit
+            </button>
+            <button class="db__edit db__edit--outline" (click)="PasswordModal.openModal()">
+                <i class="ri-lock-line"></i> Password
+            </button>
+        </div>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="db__details">
+        <h3 class="db__details-title">Account Details</h3>
+        <div class="db__details-grid">
+            <div class="db__detail">
+                <i class="ri-user-line"></i>
+                <div>
+                    <span class="db__detail-label">Name</span>
+                    <span class="db__detail-value">{{ (user$ | async)?.name | titleCase }}</span>
+                </div>
+            </div>
+            <div class="db__detail">
+                <i class="ri-mail-line"></i>
+                <div>
+                    <span class="db__detail-label">Email</span>
+                    <span class="db__detail-value">{{ (user$ | async)?.email }}</span>
+                </div>
+            </div>
+            <div class="db__detail">
+                <i class="ri-phone-line"></i>
+                <div>
+                    <span class="db__detail-label">Phone</span>
+                    <span class="db__detail-value">{{ (user$ | async)?.country_code }} {{ (user$ | async)?.phone }}</span>
+                </div>
+            </div>
+            <div class="db__detail" *ngIf="address">
+                <i class="ri-map-pin-line"></i>
+                <div>
+                    <span class="db__detail-label">Default Address</span>
+                    <span class="db__detail-value">
+                        <span *ngIf="address.flat_no">{{ address.flat_no }}, </span>
+                        <span *ngIf="address.building">{{ address.building }}, </span>
+                        {{ address.street }}, {{ address.city }}, {{ address.area }} {{ address.pincode }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-edit-profile-modal #profileModal></app-edit-profile-modal>
+<app-change-password-modal #passwordModal></app-change-password-modal>

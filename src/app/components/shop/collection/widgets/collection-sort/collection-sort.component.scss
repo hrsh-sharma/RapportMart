@@ -1,0 +1,89 @@
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$text: #333;
+
+.coll-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  gap: 12px;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+}
+
+.toolbar-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: none;
+  color: $text;
+  border: 1.5px solid $text;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+
+  i { font-size: 15px; }
+
+  &:hover {
+    background: $text;
+    color: $pink;
+  }
+}
+
+.grid-opt {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #bbb;
+  transition: all 0.15s;
+  padding: 0;
+
+  i { font-size: 18px; }
+
+  &:hover {
+    color: $text;
+    background: #faf8fb;
+  }
+
+  &.active {
+    color: $pink-dark;
+    background: $pink;
+  }
+}
+
+html.dark {
+  .toolbar-filter-btn {
+    border-color: #555;
+    color: #ddd;
+    &:hover { background: $pink-dark; border-color: $pink-dark; color: #fff; }
+  }
+
+  .grid-opt {
+    color: #555;
+    &:hover { color: #ddd; background: #222; }
+    &.active { color: $pink-dark; background: rgba($pink-dark, 0.12); }
+  }
+}

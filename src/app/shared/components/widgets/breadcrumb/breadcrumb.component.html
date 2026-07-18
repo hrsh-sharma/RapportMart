@@ -1,0 +1,15 @@
+<section class="bc-hero" *ngIf="breadcrumb">
+    <div class="container-fluid-lg">
+        <div class="bc-hero__inner">
+            <nav class="bc-hero__trail" aria-label="breadcrumb">
+                <a [routerLink]="['/']" class="bc-hero__link">Home</a>
+                <ng-container *ngFor="let item of filteredItems; let last = last">
+                    <span class="bc-hero__sep">/</span>
+                    <a [routerLink]="item?.url ? [item.url] : ['/']" class="bc-hero__link" *ngIf="!item?.active && !last && item?.url">{{ item?.label! | titleCase }}</a>
+                    <span class="bc-hero__current" *ngIf="item?.active || last || !item?.url">{{ item?.label! | titleCase }}</span>
+                </ng-container>
+            </nav>
+            <h1 class="bc-hero__title">{{ breadcrumb.title | titleCase }}</h1>
+        </div>
+    </div>
+</section>

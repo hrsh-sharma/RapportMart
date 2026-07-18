@@ -1,0 +1,173 @@
+<div class="od" *ngIf="!loading && order">
+    <!-- Header -->
+    <div class="od__header">
+        <div>
+            <h1 class="od__title">Order #{{ order.order_number }}</h1>
+            <p class="od__sub">{{ order?.created_at | date: 'dd MMM yyyy, hh:mm a' }}</p>
+        </div>
+        <div class="od__actions">
+            <a href="javascript:void(0)" class="od__btn od__btn--pay" *ngIf="canPayNow" (click)="payModal.openModal(order)">
+                Pay Now
+            </a>
+            <a (click)="download(order.order_number)" class="od__btn od__btn--outline" download *ngIf="canDownloadInvoice">
+                <i class="ri-download-line"></i> Invoice
+            </a>
+        </div>
+    </div>
+
+    <!-- Tracking -->
+    <div class="od__card od__tracking" *ngIf="showTracking">
+        <h3 class="od__card-title">Order Tracking</h3>
+        <div class="od__steps">
+            <div class="od__step"
+                *ngFor="let orderStatus of (orderStatus$ | async)?.data"
+                [class.active]="orderStatus?.sequence! <= order.order_status.sequence!"
+                [class.done]="orderStatus?.sequence! < order.order_status.sequence!"
+                [ngClass]="{
+                    'd-none': (orderStatus?.sequence! >= order.order_status.sequence!
+                    && (order.order_status && order.order_status.slug == 'cancelled')) ||
+                    orderStatus?.slug == 'cancelled' || (order.is_digital_only && (orderStatus?.slug == 'shipped' || orderStatus?.slug == 'out-for-delivery'))
+                }">
+                <div class="od__step-dot"></div>
+                <span class="od__step-label">{{ orderStatus?.name | titleCase }}</span>
+            </div>
+            <div class="od__step active cancelled" *ngIf="order?.order_status?.slug == 'cancelled'">
+                <div class="od__step-dot"></div>
+                <span class="od__step-label">{{ order.order_status.name.replace('_', ' ')! | titlecase }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products -->
+    <div class="od__card" *ngIf="order?.products?.length">
+        <h3 class="od__card-title">Ordered Products</h3>
+        <div class="od__product" *ngFor="let product of order.products">
+            <img [src]="product?.pivot?.variation?.variation_image
+                    ? product?.pivot?.variation?.variation_image?.original_url
+                    : product?.product_thumbnail
+                    ? product?.product_thumbnail?.original_url
+                    : 'assets/images/product.png'"
+                class="od__product-img" alt="product">
+            <div class="od__product-info">
+                <h4 class="od__product-name">{{ product?.pivot?.variation ? product?.pivot?.variation?.name : product?.name }}</h4>
+                <div class="od__product-meta">
+                    <span>{{ product?.pivot?.single_price | currencySymbol }} x {{ product?.pivot?.quantity }}</span>
+                    <span class="od__product-subtotal">{{ product?.pivot?.subtotal | currencySymbol }}</span>
+                </div>
+            </div>
+            <div class="od__product-refund">
+                <a href="javascript:void(0)" class="od__refund-btn"
+                    *ngIf="product?.is_return === 1 && order?.payment_status === 'COMPLETED' && order.order_status?.slug == 'delivered' && !product?.pivot?.refund_status; else noRefund"
+                    (click)="refundModal.openModal(product, order.id, order.payment_method)">
+                    Refund
+                </a>
+                <ng-template #noRefund>
+                    <ng-container *ngIf="product.is_return === 0; else refundStatus">
+                        <span class="od__badge od__badge--muted">Non Refundable</span>
+                    </ng-container>
+                    <ng-template #refundStatus>
+                        <span class="od__badge od__badge--status" *ngIf="product?.pivot?.refund_status; else disabledRefund">
+                            {{ product?.pivot?.refund_status | titleCase }}
+                        </span>
+                        <ng-template #disabledRefund>
+                            <span class="od__badge od__badge--muted" ngbTooltip="Enable after delivery">Refund</span>
+                        </ng-template>
+                    </ng-template>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details + Summary -->
+    <div class="od__grid">
+        <!-- Consumer Details -->
+        <div class="od__card">
+            <h3 class="od__card-title">Details</h3>
+            <div class="od__details-list">
+                <div class="od__detail" *ngIf="order?.billing_address">
+                    <span class="od__detail-label">Billing Address</span>
+                    <div class="od__detail-value">
+                        <span *ngIf="order.billing_address.flat_no">{{ order.billing_address.flat_no }}, </span>
+                        <span *ngIf="order.billing_address.building">{{ order.billing_address.building }}, </span>
+                        {{ order.billing_address.street }}, {{ order.billing_address.city }},
+                        {{ getStateName(order.billing_address.state_id) }} {{ order.billing_address.pincode }}
+                        <br>+{{ order.billing_address.country_code }} {{ order.billing_address.phone }}
+                    </div>
+                </div>
+                <div class="od__detail" *ngIf="order?.shipping_address && !order?.is_digital_only">
+                    <span class="od__detail-label">Shipping Address</span>
+                    <div class="od__detail-value">
+                        <span *ngIf="order.shipping_address.flat_no">{{ order.shipping_address.flat_no }}, </span>
+                        <span *ngIf="order.shipping_address.building">{{ order.shipping_address.building }}, </span>
+                        {{ order.shipping_address.street }}, {{ order.shipping_address.city }},
+                        {{ getStateName(order.shipping_address.state_id) }} {{ order.shipping_address.pincode }}
+                        <br>+{{ order.shipping_address.country_code }} {{ order.shipping_address.phone }}
+                    </div>
+                </div>
+                <div class="od__detail" *ngIf="order?.payment_method">
+                    <span class="od__detail-label">Payment</span>
+                    <span class="od__detail-value">
+                        <ng-container [ngSwitch]="order?.payment_method">
+                            <span *ngSwitchCase="'Rapportmart_nabu'">UPI Intent</span>
+                            <span *ngSwitchCase="'pay_drill'">Cash Free</span>
+                            <span *ngSwitchCase="'star_mangal'">UPI App</span>
+                            <span *ngSwitchDefault>{{ order?.payment_method | titleCase }}</span>
+                        </ng-container>
+                        — <span class="od__status od__status--{{ order?.payment_status?.toLowerCase() }}">{{ order.payment_status | titleCase }}</span>
+                    </span>
+                </div>
+                <div class="od__detail" *ngIf="order?.delivery_description && !order?.is_digital_only">
+                    <span class="od__detail-label">Delivery</span>
+                    <span class="od__detail-value">Standard | Approx 10–15 Days</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="od__card od__summary-card">
+            <h3 class="od__card-title">Summary</h3>
+            <div class="od__summary">
+                <div class="od__sum-row">
+                    <span>Subtotal</span><span>{{ (order.amount || 0) | currencySymbol }}</span>
+                </div>
+                <div class="od__sum-row" *ngIf="!order?.is_digital_only">
+                    <span>Shipping</span><span>{{ (order.shipping_total || 0) | currencySymbol }}</span>
+                </div>
+                <div class="od__sum-row">
+                    <span>Tax</span><span>{{ (order.tax_total || 0) | currencySymbol }}</span>
+                </div>
+                <div class="od__sum-row od__sum-row--discount" *ngIf="order.points_amount != 0">
+                    <span>Points</span><span>-{{ order.points_amount | currencySymbol }}</span>
+                </div>
+                <div class="od__sum-row od__sum-row--discount" *ngIf="order.wallet_balance != 0">
+                    <span>Wallet</span><span>-{{ order.wallet_balance | currencySymbol }}</span>
+                </div>
+                <div class="od__sum-row od__sum-row--discount" *ngIf="order.coupon_total_discount != 0">
+                    <span>Discount</span><span>-{{ order.coupon_total_discount | currencySymbol }}</span>
+                </div>
+                <div class="od__sum-row od__sum-row--total">
+                    <span>Total</span><span>{{ (order.total || 0) | currencySymbol }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub Orders -->
+    <div class="od__card" *ngIf="order?.sub_orders?.length">
+        <h3 class="od__card-title">Sub Orders</h3>
+        <div class="od__sub-order" *ngFor="let sub of order.sub_orders">
+            <div class="od__sub-info">
+                <span class="od__sub-number">#{{ sub.order_number }}</span>
+                <span class="od__sub-date">{{ sub.created_at | date: 'dd MMM yyyy' }}</span>
+                <span class="od__sub-amount">{{ sub.amount | currencySymbol }}</span>
+                <span class="od__badge od__badge--status">{{ sub.order_status.name | titleCase }}</span>
+            </div>
+            <a [routerLink]="['/account/order/details', sub.order_number]" class="od__sub-link">
+                View <i class="ri-arrow-right-s-line"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<app-refund-modal #refundModal></app-refund-modal>
+<app-pay-modal #payModal></app-pay-modal>

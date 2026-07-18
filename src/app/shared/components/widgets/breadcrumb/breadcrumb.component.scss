@@ -1,0 +1,80 @@
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$text: #333;
+
+.bc-hero {
+  background: linear-gradient(135deg, $lavender 0%, $pink 100%);
+  padding: 32px 0;
+  text-align: center;
+
+  @media (max-width: 575px) {
+    padding: 24px 0;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__trail {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__link {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba($text, 0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $pink-dark;
+    }
+  }
+
+  &__sep {
+    font-size: 11px;
+    color: rgba($text, 0.25);
+    user-select: none;
+  }
+
+  &__current {
+    font-size: 12px;
+    font-weight: 600;
+    color: $pink-dark;
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 700;
+    color: $text;
+    margin: 0;
+    letter-spacing: -0.3px;
+
+    @media (max-width: 767px) {
+      font-size: 22px;
+    }
+
+    @media (max-width: 575px) {
+      font-size: 19px;
+    }
+  }
+}
+
+html.dark {
+  .bc-hero {
+    background: linear-gradient(135deg, #2a2840, #3a2530);
+
+    .bc-hero__link { color: rgba(255,255,255,0.4); &:hover { color: $pink-dark; } }
+    .bc-hero__sep { color: rgba(255,255,255,0.2); }
+    .bc-hero__current { color: $pink-dark; }
+    .bc-hero__title { color: #eee; }
+  }
+}

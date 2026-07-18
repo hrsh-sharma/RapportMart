@@ -1,0 +1,115 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<section class="cart-page">
+    <div class="container-fluid-lg">
+        <div class="row g-4" *ngIf="(cartItem$ | async)?.length">
+            <!-- Left: Cart Items -->
+            <div class="col-lg-8">
+                <div class="cp__header">
+                    <h1 class="cp__title">Your Bag</h1>
+                    <span class="cp__count">{{ (cartItem$ | async)?.length }} {{ 'items' | translate }}</span>
+                </div>
+
+                <div class="cp__items">
+                    <div class="cp__item" *ngFor="let item of cartItem$ | async">
+                        <a [routerLink]="['/product/', item?.product?.slug]" class="cp__item-img-wrap">
+                            <img [src]="item?.variation?.variation_image
+                                    ? item?.variation?.variation_image?.original_url
+                                    : item?.product?.product_thumbnail
+                                    ? item?.product?.product_thumbnail?.original_url
+                                    : 'assets/images/product.png'" class="cp__item-img" alt="product">
+                        </a>
+
+                        <div class="cp__item-body">
+                            <div class="cp__item-top">
+                                <div>
+                                    <h3 class="cp__item-name">
+                                        <a [routerLink]="['/product/', item.product.slug]">
+                                            {{ item?.variation ? item.variation.name : item?.product?.name }}
+                                        </a>
+                                    </h3>
+                                    <span class="cp__item-variant" *ngIf="item?.variation">{{ item?.variation?.selected_variation || item?.variation?.name }}</span>
+                                </div>
+                                <button class="cp__item-remove" (click)="delete(item.id)">
+                                    <i class="ri-close-line"></i>
+                                </button>
+                            </div>
+
+                            <div class="cp__item-bottom">
+                                <div class="cp__qty">
+                                    <app-button [class]="'cp__qty-btn'" [id]="'minus_quantity'" [spinner]="false"
+                                        [type]="'button'" (click)="updateQuantity(item, -1)">
+                                        <i class="ri-subtract-fill"></i>
+                                    </app-button>
+                                    <span class="cp__qty-val">{{ item.quantity }}</span>
+                                    <app-button [class]="'cp__qty-btn'" [id]="'plus_quantity'" [spinner]="false"
+                                        [type]="'button'" (click)="updateQuantity(item, 1)">
+                                        <i class="ri-add-line"></i>
+                                    </app-button>
+                                </div>
+                                <span class="cp__item-price">
+                                    {{ (item?.variation ? item?.variation?.sale_price : item?.product && item?.wholesale_price
+                                    ? item?.wholesale_price! : item?.product?.sale_price) | currencySymbol }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Summary -->
+            <div class="col-lg-4">
+                <div class="cp__summary">
+                    <h3 class="cp__summary-title">Order Summary</h3>
+
+                    <div class="cp__summary-rows">
+                        <div class="cp__sum-row">
+                            <span>Subtotal</span>
+                            <span>{{ (cartTotal$ | async) || 0 | currencySymbol }}</span>
+                        </div>
+                        <div class="cp__sum-row" *ngIf="!(cartDigital$ | async)">
+                            <span>Shipping</span>
+                            <span [class.cp__sum-muted]="!(checkout$ | async)">
+                                {{ (checkout$ | async) ? ((checkout$ | async)?.total?.shipping_total | currencySymbol) :
+                                'At checkout' }}
+                            </span>
+                        </div>
+                        <div class="cp__sum-row">
+                            <span>Tax</span>
+                            <span [class.cp__sum-muted]="!(checkout$ | async)">
+                                {{ (checkout$ | async) ? ((checkout$ | async)?.total?.tax_total | currencySymbol) : 'At
+                                checkout' }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="cp__sum-total">
+                        <span>Total</span>
+                        <span>
+                            {{ (checkout$ | async) ? ((checkout$ | async)?.total?.total | currencySymbol) : ((cartTotal$
+                            | async) || 0 | currencySymbol) }}
+                        </span>
+                    </div>
+
+                    <a class="cp__btn-checkout" [routerLink]="['/checkout/']">
+                        Proceed to Checkout <i class="ri-arrow-right-line"></i>
+                    </a>
+                    <a class="cp__btn-continue" [routerLink]="['/collections/']">
+                        <i class="ri-arrow-left-line"></i> Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty Cart -->
+        <div class="cp__empty" *ngIf="!(cartItem$ | async)?.length">
+            <div class="cp__empty-icon">
+                <i class="ri-shopping-bag-2-line"></i>
+            </div>
+            <h2>Your bag is empty</h2>
+            <p>Looks like you haven't added anything yet.</p>
+            <a [routerLink]="['/collections']" class="cp__empty-btn">
+                Start Shopping <i class="ri-arrow-right-line"></i>
+            </a>
+        </div>
+    </div>
+</section>

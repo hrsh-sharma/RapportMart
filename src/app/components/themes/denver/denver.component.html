@@ -1,0 +1,228 @@
+<!-- Home Section Start -->
+
+<!-- Hero Section Start -->
+<section class="hero-slider" #heroSlider>
+    <div class="hero-slider__track" #sliderTrack>
+        <div class="hero-slide" *ngFor="let slide of heroSlides">
+            <a [routerLink]="slide.link">
+                <img [src]="slide.image" [alt]="slide.alt" loading="eager">
+            </a>
+        </div>
+    </div>
+
+    <!-- Prev / Next arrows -->
+    <button class="hero-slider__arrow hero-slider__arrow--prev" (click)="previousSlide()">
+        <i class="ri-arrow-left-s-line"></i>
+    </button>
+    <button class="hero-slider__arrow hero-slider__arrow--next" (click)="nextSlide()">
+        <i class="ri-arrow-right-s-line"></i>
+    </button>
+
+    <!-- Dot indicators -->
+    <div class="hero-slider__dots">
+        <button *ngFor="let slide of heroSlides; let i = index"
+            class="hero-slider__dot"
+            [class.active]="i === currentSlide"
+            (click)="goToSlide(i)">
+        </button>
+    </div>
+</section>
+
+<!-- Featured Products Section Start (Top) -->
+<section class="product-section featured-products-section" *ngIf="featuredProductIds?.length">
+    <div class="container-fluid-lg">
+        <div class="product-section-content">
+            <div class="product-list-wrapper">
+                <app-theme-product [productIds]="featuredProductIds" [style]="'horizontal'" [slider]="true"
+                    [sliderOption]="productSlider4Item" [productStyle]="'product-solid'" [boxClass]="'product-box-bg'">
+                </app-theme-product>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Featured Products Section End (Top) -->
+
+<!-- Trending Categories Section Start -->
+<section class="tc-section">
+    <div class="container-fluid-lg">
+        <h2 class="tc-title">Trending Categories</h2>
+        <div class="tc-grid">
+            <a [routerLink]="cat.link" class="tc-card" *ngFor="let cat of trendingCategories">
+                <div class="tc-card__img">
+                    <img [src]="cat.image" [alt]="cat.name" loading="lazy">
+                </div>
+                <span class="tc-card__name">{{ cat.name }}</span>
+            </a>
+            <a routerLink="/collections" class="tc-card tc-card--more">
+                <div class="tc-card__cta">
+                    <i class="ri-arrow-right-line"></i>
+                    <span>Explore More</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Trending Categories Section End -->
+
+<!-- Featured Products Section Start -->
+<section class="product-section featured-products-section" *ngIf="featuredProductIds2?.length">
+    <div class="container-fluid-lg">
+        <div class="product-section-content">
+            <div class="product-list-wrapper">
+                <app-theme-product [productIds]="featuredProductIds2" [style]="'horizontal'" [slider]="true"
+                    [sliderOption]="productSlider4Item" [productStyle]="'product-solid'" [boxClass]="'product-box-bg'">
+                </app-theme-product>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Featured Products Section End -->
+
+<!-- Banner Section Start -->
+<section class="summer-banner">
+    <div class="container-fluid-lg">
+        <a href="/collections" class="summer-banner__link">
+            <div class="summer-banner__frame">
+                <img src="assets/images/new-banner.png" alt="New Collection" class="summer-banner__img" loading="lazy">
+            </div>
+        </a>
+    </div>
+</section>
+<!-- Banner Section End -->
+
+<!-- <section class="home-section-2 home-section-bg pt-md-0 pt-3 overflow-hidden" *ngIf="data?.content?.home_banner">
+  <app-theme-home-banner [theme]="'denver'" [data]="data?.content?.home_banner"></app-theme-home-banner>
+</section> -->
+<!-- Home Section End -->
+
+
+<!-- Deal Section Start -->
+<section class="product-section product-section-3" *ngIf="data?.content?.products_list_1?.status">
+    <div class="container-fluid-lg">
+        <div class="product-section-content">
+            <app-title [title]="data?.content?.products_list_1?.title" [style]="'simple'" [headingLevel]="'h1'"
+                class="h1-text">
+            </app-title>
+
+            <div class="product-list-wrapper">
+                <app-theme-product [productIds]="latestItemIds"
+                    [style]="'horizontal'" [slider]="true" [sliderOption]="productSlider6ItemMargin"
+                    [productStyle]="'product-solid'" [boxClass]="'product-box-bg'">
+                </app-theme-product>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Deal Section End -->
+
+<!-- Brand Statement Section Start -->
+<section class="brand-statement">
+    <!-- Infinite Scrolling Marquee -->
+    <div class="marquee">
+        <div class="marquee__track">
+            <span class="marquee__text">New Arrivals</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Trending Now</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Free Shipping</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Style Essentials</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">New Arrivals</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Trending Now</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Free Shipping</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Style Essentials</span>
+            <span class="marquee__star">&#10038;</span>
+        </div>
+    </div>
+
+    <!-- Statement + Stats -->
+    <div class="brand-statement__inner">
+        <p class="brand-statement__tagline">Where Style Meets Confidence</p>
+        <h2 class="brand-statement__heading">
+            Curated Fashion<br>
+            <span>For Every You</span>
+        </h2>
+
+        <div class="brand-statement__stats">
+            <div class="stat-card">
+                <i class="ri-shopping-bag-2-line stat-card__icon"></i>
+                <span class="stat-card__label">Handpicked Styles</span>
+            </div>
+            <div class="stat-card">
+                <i class="ri-truck-line stat-card__icon"></i>
+                <span class="stat-card__label">Fast Delivery</span>
+            </div>
+            <div class="stat-card">
+                <i class="ri-refresh-line stat-card__icon"></i>
+                <span class="stat-card__label">Easy Returns</span>
+            </div>
+            <div class="stat-card">
+                <i class="ri-shield-check-line stat-card__icon"></i>
+                <span class="stat-card__label">Secure Checkout</span>
+            </div>
+        </div>
+
+        <a routerLink="/collections" class="brand-statement__cta">
+            Explore Collections <i class="ri-arrow-right-line"></i>
+        </a>
+    </div>
+
+    <!-- Bottom Marquee (reverse direction) -->
+    <div class="marquee marquee--reverse">
+        <div class="marquee__track">
+            <span class="marquee__text">Ethnic Wear</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Western Style</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Active Wear</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Accessories</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Ethnic Wear</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Western Style</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Active Wear</span>
+            <span class="marquee__star">&#10038;</span>
+            <span class="marquee__text">Accessories</span>
+            <span class="marquee__star">&#10038;</span>
+        </div>
+    </div>
+</section>
+<!-- Brand Statement Section End -->
+
+
+
+
+<!-- Top Selling Section Start -->
+<!-- <section class="product-section product-section-3 mb-4" *ngIf="data?.content?.products_list_2?.status">
+    <div class="container-fluid-lg">
+        <div>
+            <app-title [title]="data?.content?.products_list_2?.title " [style]="'simple'" class="mb-5">
+            </app-title>
+            <app-theme-product [productIds]="discountItemIds" [style]="'horizontal'"
+                [slider]="true" [sliderOption]="productSlider6ItemMargin" [productStyle]="'product-solid'"
+                [boxClass]="'product-box-bg'">
+            </app-theme-product>
+        </div>
+    </div>
+</section> -->
+<!-- Top Selling Section End -->
+
+<!-- Top Selling Section Start -->
+<section class="product-section product-section-3 mt-5 mb-5 pb-3" *ngIf="data?.content?.products_list_3?.status">
+    <div class="container-fluid-lg">
+        <div>
+
+            <app-theme-product [productIds]="list3ItemIds" [style]="'horizontal'"
+                [slider]="true" [sliderOption]="productSlider6ItemMargin" [productStyle]="'product-solid'"
+                [boxClass]="'product-box-bg'">
+            </app-theme-product>
+        </div>
+    </div>
+</section>
+<!-- Top Selling Section End -->

@@ -1,0 +1,472 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<section class="checkout-section-modern section-b-space" id="mySubPaisa">
+    <div class="container-fluid-lg">
+        <div class="row g-4">
+            <!-- Left Column - Checkout Forms -->
+            <div class="col-xxl-8 col-xl-7">
+                <div class="checkout-left-wrapper">
+                    <!-- Guest Checkout Section -->
+                    <div class="checkout-detail-box"
+                        *ngIf="(setting$ | async)?.activation?.guest_checkout && !(accessToken$ | async)">
+                        <ul class="checkout-steps-list">
+                            <!-- Account Details for Guest -->
+                            <li class="checkout-step-item">
+                                <div class="checkout-step-icon">
+                                    <i class="ri-user-line"></i>
+                                </div>
+                                <div class="checkout-step-content">
+                                    <div class="checkout-step-header">
+                                        <h4>{{ 'Account Details' | translate }}</h4>
+                                    </div>
+                                    <div class="checkout-step-body">
+                                        <form [formGroup]="form" class="checkout-form row g-3">
+                                            <div class="col-md-4">
+                                                <div class="form-group-modern">
+                                                    <label for="name" class="form-label-modern">{{ 'Name' | translate
+                                                        }}</label>
+                                                    <input type="text" class="form-control-modern"
+                                                        formControlName="name"
+                                                        placeholder="{{ 'Enter Name' | translate }}" id="name"
+                                                        (input)="filterSpecialCharacters($event, 'name')"
+                                                        pattern="[a-zA-Z0-9\s\.\-\']+">
+                                                    <div class="error-message"
+                                                        *ngIf="form?.controls?.['name']?.touched && form.controls['name']?.errors?.['required']">
+                                                        {{ 'Name Is Required' | translate }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group-modern">
+                                                    <label for="email" class="form-label-modern">{{ 'Email' | translate
+                                                        }}</label>
+                                                    <input type="email" class="form-control-modern"
+                                                        placeholder="{{ 'Enter Email Address' | translate }}"
+                                                        formControlName="email" id="email"
+                                                        (input)="filterEmailCharacters($event)"
+                                                        pattern="[a-zA-Z0-9._\-+@]+">
+                                                    <div class="error-message"
+                                                        *ngIf="form?.controls?.['email']?.touched && form.controls['email']?.errors?.['required']">
+                                                        {{ 'Email is Required' | translate }}
+                                                    </div>
+                                                    <div *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email']"
+                                                        class="error-message">
+                                                        {{ 'Invalid Email' | translate }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group-modern">
+                                                    <label class="form-label-modern" for="phoneno">{{ 'Phone Number' |
+                                                        translate
+                                                        }}</label>
+                                                    <input type="number" class="form-control-modern"
+                                                        formControlName="phone"
+                                                        placeholder="{{ 'enter_phone' | translate }}" name="phone"
+                                                        id="phoneno">
+                                                </div>
+                                                <div class="error-message"
+                                                    *ngIf="form?.controls?.['phone']?.touched && form.controls['phone']?.errors?.['required']">
+                                                    {{ 'Phone is Required' | translate }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-check-modern d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                    <div>
+                                                        <input type="checkbox" class="form-check-input-modern" id="account"
+                                                            formControlName="create_account">
+                                                        <label class="form-check-label-modern" for="account">
+                                                            {{ 'Create an Account?' | translate }}
+                                                        </label>
+                                                    </div>
+                                                    <a routerLink="/auth/login" class="text-decoration-underline">
+                                                        {{ 'Already have an account? Login' | translate }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" *ngIf="form.controls['create_account'].value">
+                                                <div class="form-group-modern">
+                                                    <label for="pass" class="form-label-modern">{{ 'Password' |
+                                                        translate
+                                                        }}</label>
+                                                    <input type="password" class="form-control-modern"
+                                                        formControlName="password"
+                                                        placeholder="{{ 'Enter Password' | translate }}" id="pass">
+                                                    <div class="error-message"
+                                                        *ngIf="form?.controls?.['password']?.touched && form.controls['password']?.errors?.['required']">
+                                                        {{ 'Password is Required' | translate }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" *ngIf="form.controls['create_account'].value">
+                                                <button type="button" class="btn btn-animation btn-md fw-bold"
+                                                    [disabled]="registering"
+                                                    (click)="registerFromCheckout()">
+                                                    <i class="ri-user-add-line me-1"></i>
+                                                    {{ (registering ? 'Registering...' : 'Register & Continue') | translate }}
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Shipping Address for Guest -->
+                            <li *ngIf="!(cartDigital$ | async)" class="checkout-step-item">
+                                <div class="checkout-step-icon">
+                                    <i class="ri-map-pin-line"></i>
+                                </div>
+                                <div class="checkout-step-content">
+                                    <div class="checkout-step-header">
+                                        <h4>{{ 'Shipping Address' | translate }}</h4>
+                                        <a href="javascript:void(0)" class="btn-add-new"
+                                            (click)="AddressModal.openModal()">
+                                            <i class="ri-add-line"></i> {{ 'Add Address' | translate }}
+                                        </a>
+                                    </div>
+                                    <div class="checkout-step-body">
+                                        <app-address-block [addresses]="(user$ | async)?.address || []"
+                                            [type]="'shipping'" (selectAddress)="selectShippingAddress($event)">
+                                        </app-address-block>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Billing Address for Guest -->
+                            <li class="checkout-step-item">
+                                <div class="checkout-step-icon">
+                                    <i class="ri-map-pin-line"></i>
+                                </div>
+                                <div class="checkout-step-content">
+                                    <div class="checkout-step-header">
+                                        <h4>{{ 'Billing_address' | translate }}</h4>
+                                        <a href="javascript:void(0)" class="btn-add-new"
+                                            (click)="AddressModal.openModal()">
+                                            <i class="ri-add-line"></i> {{ 'Add Address' | translate }}
+                                        </a>
+                                    </div>
+                                    <div class="checkout-step-body">
+                                        <app-address-block [addresses]="(user$ | async)?.address || []"
+                                            [type]="'billing'" (selectAddress)="selectBillingAddress($event)">
+                                        </app-address-block>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Delivery Options for Guest -->
+                            <li *ngIf="!(cartDigital$ | async)" class="checkout-step-item">
+                                <div class="checkout-step-icon">
+                                    <i class="ri-truck-line"></i>
+                                </div>
+                                <div class="checkout-step-content">
+                                    <div class="checkout-step-header">
+                                        <h4>{{ 'Delivery Options' | translate }}</h4>
+                                    </div>
+                                    <div class="checkout-step-body">
+                                        <app-delivery-block [setting]="(setting$ | async)!"
+                                            (selectDelivery)="selectDelivery($event)">
+                                        </app-delivery-block>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Logged In User Section -->
+                    <div class="checkout-detail-box" *ngIf="(accessToken$ | async)">
+                        <ul class="checkout-steps-list">
+                            <li *ngIf="!(cartDigital$ | async)" class="checkout-step-item">
+                                <div class="checkout-step-icon">
+                                    <i class="ri-map-pin-line"></i>
+                                </div>
+                                <div class="checkout-step-content">
+                                    <div class="checkout-step-header">
+                                        <h4>{{ 'Shipping Address' | translate }}</h4>
+                                        <a href="javascript:void(0)" class="btn-add-new"
+                                            (click)="AddressModal.openModal()">
+                                            <i class="ri-add-line"></i> {{ 'Add New' | translate }}
+                                        </a>
+                                    </div>
+                                    <div class="checkout-step-body">
+                                        <app-address-block [addresses]="(user$ | async)?.address" [type]="'shipping'"
+                                            (selectAddress)="selectShippingAddress($event)">
+                                        </app-address-block>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="checkout-step-item">
+                                <div class="checkout-step-icon">
+                                    <i class="ri-map-pin-line"></i>
+                                </div>
+                                <div class="checkout-step-content">
+                                    <div class="checkout-step-header">
+                                        <h4>{{ 'Billing_address' | translate }}</h4>
+                                        <a href="javascript:void(0)" class="btn-add-new"
+                                            (click)="AddressModal.openModal()">
+                                            <i class="ri-add-line"></i> {{ 'Add New' | translate }}
+                                        </a>
+                                    </div>
+                                    <div class="checkout-step-body">
+                                        <app-address-block [addresses]="(user$ | async)?.address" [type]="'billing'"
+                                            (selectAddress)="selectBillingAddress($event)">
+                                        </app-address-block>
+                                    </div>
+                                </div>
+                            </li>
+                            <li *ngIf="!(cartDigital$ | async)" class="checkout-step-item">
+                                <div class="checkout-step-icon">
+                                    <i class="ri-truck-line"></i>
+                                </div>
+                                <div class="checkout-step-content">
+                                    <div class="checkout-step-header">
+                                        <h4>{{ 'Delivery Options' | translate }}</h4>
+                                    </div>
+                                    <div class="checkout-step-body">
+                                        <div class="empty-box" *ngIf="!(user$ | async)">
+                                            <h2>{{ 'No Delivery Options Found' | translate }}</h2>
+                                        </div>
+                                        <app-delivery-block [setting]="(setting$ | async)!"
+                                            (selectDelivery)="selectDelivery($event)">
+                                        </app-delivery-block>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Order Summary -->
+            <div class="col-xxl-4 col-xl-5 mt-0">
+                <!-- Payment Options Section - Only show when logged in -->
+                <div class="payment-options-card" *ngIf="(accessToken$ | async)">
+                    <div class="payment-options-header pb-3">
+                        <h3 class="payment-options-title">{{ 'Payment Options' | translate }}</h3>
+                    </div>
+                    <div class="payment-options-body">
+                        <div class="empty-box" *ngIf="!(setting$ | async)?.payment_methods?.length">
+                            <h2>{{ 'No Payment Options Found' | translate }}</h2>
+                        </div>
+                        <app-payment-block *ngIf="(setting$ | async)?.payment_methods?.length"
+                            [setting]="(setting$ | async)!" (selectPaymentMethod)="selectPaymentMethod($event)">
+                        </app-payment-block>
+                    </div>
+                </div>
+
+                <div class="order-summary-card">
+                    <div class="order-summary-header">
+                        <h3 class="order-summary-title">
+                            <i class="ri-shopping-bag-line me-2"></i> {{ 'Order Summary' | translate }}
+                        </h3>
+                    </div>
+                    <div class="order-summary-body custom-box-loader">
+                        <div class="box-loader" *ngIf="loading">
+                            <app-loader [loaderClass]="'custom-loader-wrapper'"></app-loader>
+                        </div>
+                        <div class="order-items-section">
+                            <app-no-data [class]="'empty-cart'" [image]="'assets/svg/empty-items.svg'"
+                                [text]="'No Items Cart'" *ngIf="!(cartItem$ | async)?.length">
+                            </app-no-data>
+                            <ul class="order-items-list" *ngIf="(cartItem$ | async)?.length">
+                                <li *ngFor="let item of cartItem$ | async" class="order-item">
+                                    <div class="order-item-image">
+                                        <img [src]="item?.variation && item?.variation?.variation_image
+                                                    ? item?.variation?.variation_image?.original_url
+                                                    : item?.product?.product_thumbnail
+                                                    ? item?.product?.product_thumbnail?.original_url
+                                                    : 'assets/images/product.png'" class="img-fluid" alt="product">
+                                    </div>
+                                    <div class="order-item-details">
+                                        <h5 class="order-item-name">
+                                            {{ item?.variation ? item?.variation?.name : item?.product?.name }}
+                                        </h5>
+                                        <div class="item-variation" *ngIf="item?.variation">
+                                            <small class="variation-label">Size:</small>
+                                            <span class="variation-value">{{ item?.variation?.selected_variation ||
+                                                item?.variation?.name || 'N/A'
+                                                }}</span>
+                                        </div>
+                                        <div class="order-item-price-info">
+                                            <span class="order-item-price">
+                                                {{ (item?.variation ? item.variation.sale_price : item?.product &&
+                                                item?.wholesale_price ? item?.wholesale_price :
+                                                item?.product?.sale_price)! | currencySymbol }}
+                                            </span>
+                                            <span class="order-item-quantity">× {{ item.quantity }}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <ng-container *ngIf="(cartItem$ | async)?.length">
+                            <form [formGroup]="form" (ngSubmit)="placeorder()">
+                                <div class="order-summary-breakdown">
+                                    <div class="summary-row">
+                                        <span class="summary-label">{{ 'Subtotal' | translate }}</span>
+                                        <span class="summary-value">
+                                            {{ (checkoutTotal ? (checkoutTotal.total.sub_total | currencySymbol) :
+                                            (((cartTotal$ | async) ?? 0) | currencySymbol)) }}
+                                        </span>
+                                    </div>
+                                    <div class="summary-row" *ngIf="!(cartDigital$ | async)">
+                                        <span class="summary-label">{{ 'Shipping' | translate }}</span>
+                                        <span class="summary-value">
+                                            {{ (checkoutTotal ? (checkoutTotal.total.shipping_total |
+                                            currencySymbol) : (0 | currencySymbol)) }}
+                                        </span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span class="summary-label">{{ 'Tax' | translate }}</span>
+                                        <span class="summary-value">
+                                            {{ (checkoutTotal ? (checkoutTotal.total.tax_total | currencySymbol) :
+                                            (0 | currencySymbol)) }}
+                                        </span>
+                                    </div>
+                                    <div class="summary-row"
+                                        *ngIf="(user$ | async) && checkoutTotal && (user$ | async)?.point?.balance">
+                                        <span class="summary-label"
+                                            [class.active]="form.controls['points_amount'].value">
+                                            {{ 'Points' | translate }}
+                                        </span>
+                                        <span class="summary-value"
+                                            [class.active]="form.controls['points_amount'].value">
+                                            {{ (checkoutTotal ? (checkoutTotal.total.convert_point_amount! |
+                                            currencySymbol) : 'Not Calculated Yet' | translate ) }}
+                                        </span>
+                                    </div>
+                                    <div class="summary-divider"></div>
+                                    <div class="summary-row total-row">
+                                        <span class="summary-label">{{ 'Total' | translate }}</span>
+                                        <span class="summary-value total-value">
+                                            {{ (checkoutTotal ? (checkoutTotal.total.total | currencySymbol) :
+                                            (((cartTotal$ | async) ?? 0) | currencySymbol)) }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngIf="minOrderError"
+                                    style="color: #dc3545; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 0.75rem 1.25rem; margin-top: 10px; margin-bottom: 10px; border-radius: 0.25rem; width: 100%; display: block; clear: both;">
+                                    <strong><i class="ri-alert-line"></i> {{ minOrderError }}</strong>
+                                </div>
+                                <app-button [class]="'btn btn-place-order'" [id]="'place_order'"
+                                    [disabled]="loading || !(form.valid && checkoutTotal) || !!minOrderError"
+                                    [loading]="loading">
+                                    <i class="ri-lock-line"></i> {{ 'Place Order' | translate }}
+                                </app-button>
+                            </form>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<address-modal #addressModal></address-modal>
+<div id="paymentContainer" style="visibility: hidden;"></div>
+
+<ng-template #payByQRModal let-data="data">
+    <div class="dashboard-address p-5">
+        <div class="title-header">
+            <div class="d-flex align-items-center w-100 justify-content-between">
+                <h5>{{ 'Payment By QR' }}</h5>
+            </div>
+        </div>
+        <div class="row g-sm-4 g-3">
+            <div class="col-12">
+                <div class="address-box p3">
+                    <!DOCTYPE html>
+                    <html lang="en">
+
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1">
+                        <title>UPI Payment Modal</title>
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+                            rel="stylesheet">
+                        <style>
+                            .modal-header {
+                                background-color: #007bff;
+                                color: white;
+                                border-bottom: none;
+                            }
+
+                            .modal-body {
+                                text-align: center;
+                            }
+
+                            .qr-container {
+                                border: 1px solid #ddd;
+                                padding: 10px;
+                                border-radius: 5px;
+                            }
+
+                            .payment-icons img {
+                                margin: 5px;
+                            }
+
+                            .upi-id {
+                                font-weight: bold;
+                                background-color: #f8f9fa;
+                                padding: 5px;
+                                border-radius: 5px;
+                                display: inline-block;
+                            }
+                        </style>
+                    </head>
+
+                    <body>
+
+                        <!-- Payment Modal -->
+                        <div>
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Order ID: <span
+                                                class="badge bg-light text-dark">#9990</span></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body payByNeoKred">
+                                        <app-loader *ngIf="loading"></app-loader>
+                                        <ng-container *ngIf="!payByNeoStep">
+                                            <div class="qr-container">
+                                                <img src="/assets/images/QR_Code.png" alt="QR Code" class="img-fluid">
+                                            </div>
+                                            <p class="mt-2 upi-id">9643790758&amp;YESBANK</p>
+                                            <p class="text-muted">
+                                                Please scan the QR code with any UPI app to pay for your order. After
+                                                payment, enter the UPI Reference ID or Transaction Number (e.g.
+                                                401422121258) on the next screen. We'll manually verify your payment
+                                                using the provided information.
+                                            </p>
+                                            <div class="payment-icons">
+                                                <img src="/assets/images/payments.png" alt="UPI">
+                                                <ul class="upi_bar">
+                                                </ul>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="payByNeoStep">
+                                            <p>Enter 14 Digits Number</p>
+                                        </ng-container>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h5 class="me-auto">₹ 1100.00</h5>
+                                        <button type="button" class="btn btn-primary" (click)="paybyNeoNext()"
+                                            *ngIf="!payByNeoStep">Next</button>
+                                        <button type="button" class="btn btn-primary" (click)="paybyNeoDone()"
+                                            *ngIf="payByNeoStep">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+
+                    </html>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>

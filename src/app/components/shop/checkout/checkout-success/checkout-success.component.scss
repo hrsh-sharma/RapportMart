@@ -1,0 +1,291 @@
+// ── Actual site colors extracted from screenshot ──────────────────────────
+// Breadcrumb bg gradient : lavender #DDD8EC → blush #F5D5D0
+// Active/accent color    : coral   #C97B75
+// Top bar                : dark maroon #2A1015
+// Body text              : near-black  #222222
+// Card bg                : white
+// ──────────────────────────────────────────────────────────────────────────
+
+$coral:         #C97B75;
+$coral-light:   rgba(201, 123, 117, 0.10);
+$coral-border:  rgba(201, 123, 117, 0.30);
+$coral-shadow:  rgba(201, 123, 117, 0.30);
+$lavender:      #DDD8EC;
+$blush:         #F5D5D0;
+$dark:          #2A1015;
+$text:          #222222;
+$muted:         #777777;
+$border:        #e8e8e8;
+
+// ─── Section — same lavender→blush gradient as the breadcrumb ────────────
+.cod-success-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: 60px 0;
+}
+
+// ─── Card ────────────────────────────────────────────────────────────────
+.cod-success-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 56px 48px;
+  box-shadow: 0 8px 48px rgba(201, 123, 117, 0.12),
+              0 2px 12px rgba(0,0,0,0.06);
+  max-width: 740px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+
+  // coral top stripe
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 5px;
+    background: linear-gradient(90deg, $coral, lighten($coral, 16%));
+  }
+}
+
+// ─── Icon ────────────────────────────────────────────────────────────────
+.cod-icon-wrap {
+  animation: bounceIn 0.8s ease-out both;
+}
+
+.cod-icon-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: $coral-light;
+  border: 2px solid $coral-border;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 0 0 10px rgba(201,123,117,0.07),
+              0 0 0 20px rgba(201,123,117,0.03);
+
+  .cod-delivery-img {
+    width: 64px; height: 64px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 8px $coral-shadow);
+  }
+}
+
+// ─── Text ────────────────────────────────────────────────────────────────
+.cod-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $dark;
+  letter-spacing: -0.4px;
+  margin-bottom: 10px;
+  animation: fadeInUp 0.65s ease-out 0.15s both;
+}
+
+.cod-subtitle {
+  font-size: 1rem;
+  color: $muted;
+  max-width: 460px;
+  margin: 0 auto 26px;
+  line-height: 1.65;
+  animation: fadeInUp 0.65s ease-out 0.25s both;
+}
+
+// ─── Badge ───────────────────────────────────────────────────────────────
+.cod-order-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: $coral-light;
+  border: 1.5px solid $coral-border;
+  border-radius: 50px;
+  padding: 7px 20px;
+  margin-bottom: 32px;
+  animation: fadeInUp 0.65s ease-out 0.35s both;
+
+  .badge-label {
+    font-size: 0.83rem;
+    color: $muted;
+    font-weight: 500;
+  }
+
+  .badge-value {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: $coral;
+    background: rgba(201,123,117,0.13);
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+}
+
+// ─── Steps ───────────────────────────────────────────────────────────────
+.cod-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 auto 30px;
+  max-width: 540px;
+  animation: fadeInUp 0.65s ease-out 0.45s both;
+}
+
+.cod-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+
+  span {
+    font-size: 0.76rem;
+    color: $muted;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .step-icon {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: $coral;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 16px $coral-shadow;
+
+    i { font-size: 1.25rem; color: #fff; }
+
+    &.pending {
+      background: #fff;
+      border: 2px solid $border;
+      box-shadow: none;
+      i { color: #cccccc; }
+    }
+  }
+}
+
+.step-divider {
+  flex: 1;
+  height: 2px;
+  background: rgba(201,123,117,0.2);
+  margin-top: 22px;
+  max-width: 40px;
+}
+
+// ─── COD Notice ──────────────────────────────────────────────────────────
+.cod-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: $coral-light;
+  border: 1.5px dashed $coral-border;
+  border-radius: 12px;
+  padding: 13px 22px;
+  margin-bottom: 34px;
+  animation: fadeInUp 0.65s ease-out 0.55s both;
+
+  i { font-size: 1.35rem; color: $coral; flex-shrink: 0; }
+
+  span {
+    font-size: 0.93rem;
+    color: $muted;
+    line-height: 1.5;
+    text-align: left;
+    strong { color: $text; }
+  }
+}
+
+// ─── Buttons ─────────────────────────────────────────────────────────────
+.cod-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  animation: fadeInUp 0.65s ease-out 0.65s both;
+
+  .btn {
+    padding: 12px 28px;
+    font-weight: 700;
+    font-size: 0.93rem;
+    border-radius: 10px;
+    transition: all 0.28s ease;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: inherit;
+    cursor: pointer;
+    &:hover { transform: translateY(-3px); }
+    i { font-size: 1rem; }
+  }
+
+  .cod-btn-primary {
+    background: $coral;
+    color: #fff;
+    border: 2px solid $coral;
+    box-shadow: 0 10px 28px $coral-shadow;
+
+    &:hover {
+      background: darken($coral, 8%);
+      border-color: darken($coral, 8%);
+      box-shadow: 0 14px 36px rgba(201,123,117,0.45);
+    }
+  }
+
+  .cod-btn-outline {
+    background: #fff;
+    color: $dark;
+    border: 2px solid rgba($dark, 0.2);
+
+    &:hover {
+      border-color: $coral;
+      color: $coral;
+      background: $coral-light;
+    }
+  }
+}
+
+// ─── Animations ──────────────────────────────────────────────────────────
+@keyframes bounceIn {
+  0%   { transform: scale(0.4); opacity: 0; }
+  55%  { transform: scale(1.08); }
+  75%  { transform: scale(0.93); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .cod-success-section { padding: 40px 0; }
+
+  .cod-success-card {
+    padding: 36px 20px;
+    border-radius: 16px;
+  }
+
+  .cod-title { font-size: 1.6rem; }
+
+  .cod-icon-circle {
+    width: 96px; height: 96px;
+    .cod-delivery-img { width: 50px; height: 50px; }
+  }
+
+  .step-divider { max-width: 18px; }
+
+  .cod-step .step-icon {
+    width: 38px; height: 38px;
+    i { font-size: 1rem; }
+  }
+
+  .cod-step span { font-size: 0.7rem; }
+
+  .cod-actions {
+    flex-direction: column;
+    width: 100%;
+    .btn { width: 100%; justify-content: center; }
+  }
+
+  .cod-notice { padding: 11px 14px; }
+}

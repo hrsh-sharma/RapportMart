@@ -1,0 +1,66 @@
+<ng-template #cartPopupModal let-modal>
+  <div class="cpm" *ngIf="product">
+    <!-- Close -->
+    <button type="button" class="cpm__close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+      <i class="ri-close-line"></i>
+    </button>
+
+    <div class="cpm__layout">
+      <!-- Left: Image -->
+      <div class="cpm__gallery">
+        <img [src]="product?.product_thumbnail ? product?.product_thumbnail?.original_url : 'assets/images/product.png'"
+          [alt]="product?.name" class="cpm__img">
+      </div>
+
+      <!-- Right: Details -->
+      <div class="cpm__details">
+        <span class="cpm__brand" *ngIf="product?.brand">{{ product?.brand?.name }}</span>
+        <h4 class="cpm__name">{{ product?.name }}</h4>
+        <p class="cpm__desc" *ngIf="product?.short_description">{{ product?.short_description }}</p>
+
+        <div class="cpm__price-row">
+          <span class="cpm__price">{{ currentPrice | currencySymbol }}</span>
+          <span class="cpm__stock" *ngIf="product?.stock_status === 'in_stock'">In Stock</span>
+        </div>
+
+        <!-- Attributes -->
+        <div class="cpm__attr" *ngFor="let attribute of productAttributes">
+          <div *ngIf="availableAttributeValues[attribute.id]?.length">
+            <span class="cpm__attr-label">{{ attribute.name }}:
+              <strong>{{ selectedAttributeValues[attribute.id]?.value }}</strong>
+            </span>
+            <div class="cpm__attr-options">
+              <button *ngFor="let attrValue of availableAttributeValues[attribute.id]" class="cpm__attr-btn"
+                [class.active]="selectedAttributeValues[attribute.id]?.id === attrValue.id"
+                [attr.data-style]="attribute.style"
+                (click)="selectAttributeValue(attribute.id, attrValue)">
+                {{ attrValue.value }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions — pinned at bottom -->
+        <div class="cpm__actions">
+          <div class="cpm__qty">
+            <button type="button" (click)="updateQuantity(-1)"><i class="ri-subtract-line"></i></button>
+            <span>{{ quantity }}</span>
+            <button type="button" (click)="updateQuantity(1)"><i class="ri-add-line"></i></button>
+          </div>
+
+          <button type="button" class="cpm__wish" (click)="toggleWishlist(product)"
+            [class.is-active]="product.is_wishlist">
+            <i class="ri-heart-3-line" *ngIf="!product.is_wishlist"></i>
+            <i class="ri-heart-3-fill" *ngIf="product.is_wishlist"></i>
+          </button>
+
+          <button type="button" class="cpm__add" (click)="addToCart()" [disabled]="addToCartLoader">
+            <span class="spinner-border spinner-border-sm" *ngIf="addToCartLoader"></span>
+            <ng-container *ngIf="!addToCartLoader">Add to Bag</ng-container>
+            <ng-container *ngIf="addToCartLoader">Adding...</ng-container>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

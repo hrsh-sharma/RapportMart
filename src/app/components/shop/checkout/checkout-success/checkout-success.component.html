@@ -1,0 +1,75 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<section class="cod-success-section section-b-space">
+  <div class="container">
+    <div class="cod-success-card text-center">
+
+      <!-- Animated Icon -->
+      <div class="cod-icon-wrap mb-4">
+        <div class="cod-icon-circle">
+          <img src="assets/svg/tracking/out-for-delivery.svg" alt="Order Placed" class="cod-delivery-img" />
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h2 class="cod-title">Order Placed Successfully!</h2>
+      <p class="cod-subtitle">
+        Thank you for your order. Our team will confirm it shortly and dispatch your items.
+      </p>
+
+      <!-- Order Number Badge -->
+      <div class="cod-order-badge" *ngIf="order_status">
+        <span class="badge-label">{{ order_number ? 'Order #' + order_number : 'Order Status' }}</span>
+        <span class="badge-value">Confirmed</span>
+      </div>
+
+      <!-- Steps Info -->
+      <div class="cod-steps">
+        <div class="cod-step">
+          <div class="step-icon">
+            <i class="ri-file-check-line"></i>
+          </div>
+          <span>Order Placed</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="cod-step">
+          <div class="step-icon pending">
+            <i class="ri-boxing-line"></i>
+          </div>
+          <span>Packing</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="cod-step">
+          <div class="step-icon pending">
+            <i class="ri-truck-line"></i>
+          </div>
+          <span>On the Way</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="cod-step">
+          <div class="step-icon pending">
+            <i class="ri-home-4-line"></i>
+          </div>
+          <span>Delivered</span>
+        </div>
+      </div>
+
+      <!-- COD Notice -->
+      <div class="cod-notice">
+        <i class="ri-bank-card-line"></i>
+        <span>Pay with <strong>Cash on Delivery</strong> when your order arrives at your doorstep.</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="cod-actions">
+        <button class="btn cod-btn-primary" (click)="goToHome()">
+          <i class="ri-store-2-line me-2"></i>Continue Shopping
+        </button>
+        <a routerLink="/account/order" class="btn cod-btn-outline">
+          <i class="ri-file-list-3-line me-2"></i>My Orders
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

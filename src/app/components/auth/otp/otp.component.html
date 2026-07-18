@@ -1,0 +1,44 @@
+<section class="ax">
+    <div class="ax__card">
+        <div class="ax__logo">
+            <img src="assets/images/logo-web.png" alt="Rapportmart">
+        </div>
+
+        <h1 class="ax__title">Verify Your Identity</h1>
+        <p class="ax__sub">
+            <span *ngIf="otpType === 'email'">We sent a code to <strong>{{ email }}</strong></span>
+            <span *ngIf="otpType === 'number'">We sent a code to <strong>{{ number.phone }}</strong></span>
+        </p>
+
+        <app-alert></app-alert>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="ax__form">
+            <div class="ax__field">
+                <label>Verification Code</label>
+                <input type="text" formControlName="otp"
+                    maxlength="5"
+                    placeholder="Enter 5-digit code"
+                    oninput="this.value = this.value?.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                    onKeyPress="if(this.value.length==5) return false;"
+                    [class.error]="form.controls['otp'].touched && form.controls['otp'].invalid">
+                <span class="ax__error" *ngIf="form.controls['otp'].touched && form.controls['otp'].errors?.['required']">Verification code is required</span>
+                <span class="ax__error" *ngIf="form.controls['otp'].touched && form.controls['otp'].errors?.['pattern']">Please enter a valid 5-digit code</span>
+            </div>
+
+            <div class="ax__submit">
+                <app-button [id]="'otp_validate_btn'" [class]="'ax__btn'">
+                    {{ 'Validate' | translate }} <i class="ri-arrow-right-line"></i>
+                </app-button>
+            </div>
+        </form>
+
+        <div class="ax__resend">
+            <p>Didn't receive the code?</p>
+            <button type="button" class="ax__resend-btn" (click)="resendOtp()">
+                <i class="ri-refresh-line"></i> Resend Code
+            </button>
+        </div>
+
+        <p class="ax__switch"><a [routerLink]="['/auth/login']"><i class="ri-arrow-left-line"></i> Back to Sign In</a></p>
+    </div>
+</section>

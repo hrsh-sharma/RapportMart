@@ -1,0 +1,19 @@
+<ng-template #loginModal let-modal>
+    <div class="login-prompt-modal">
+        <button type="button" class="lpm-close" (click)="modal.dismiss('Close')">
+            <i class="ri-close-line"></i>
+        </button>
+        <div class="lpm-icon">
+            <i class="ri-lock-line"></i>
+        </div>
+        <h3 class="lpm-title">{{ 'Please log in to proceed to checkout' | translate }}</h3>
+        <div class="lpm-actions">
+            <button type="button" class="lpm-btn lpm-btn-login" (click)="goToLogin()">
+                <i class="ri-login-circle-line"></i> {{ 'Login' | translate }}
+            </button>
+            <button type="button" class="lpm-btn lpm-btn-register" (click)="goToRegister()">
+                <i class="ri-user-add-line"></i> {{ 'Register' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,77 @@
+<div class="cs-overlay" [class.show]="sidebarCartOpen$ | async" (click)="closeCart()"></div>
+<div class="cs" [class.show]="sidebarCartOpen$ | async">
+
+    <!-- Header -->
+    <div class="cs__head">
+        <div class="cs__head-left">
+            <i class="ri-shopping-bag-2-line"></i>
+            <span>Your Bag</span>
+            <span class="cs__count" *ngIf="(cartItem$ | async)?.length">{{ (cartItem$ | async)?.length }}</span>
+        </div>
+        <button type="button" class="cs__close" (click)="closeCart()">
+            <i class="ri-close-line"></i>
+        </button>
+    </div>
+
+
+    <!-- Cart Items -->
+    <div class="cs__items" *ngIf="(cartItem$ | async)?.length">
+        <div class="cs__card" *ngFor="let item of cartItem$ | async">
+            <div class="cs__card-img">
+                <img [src]="item?.variation && item?.variation?.variation_image
+                    ? item?.variation?.variation_image?.original_url
+                    : item?.product?.product_thumbnail
+                    ? item?.product?.product_thumbnail?.original_url
+                    : 'assets/images/product.png'" [alt]="item?.product?.name">
+            </div>
+            <div class="cs__card-body">
+                <div class="cs__card-top">
+                    <h5 class="cs__card-name">{{ item?.variation ? item?.variation?.name : item?.product?.name }}</h5>
+                    <button class="cs__card-del" (click)="delete(item.id)">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+                <span class="cs__card-variant" *ngIf="item?.variation">
+                    {{ item?.variation?.selected_variation || item?.variation?.name || 'N/A' }}
+                </span>
+                <div class="cs__card-bottom">
+                    <div class="cs__card-qty">
+                        <button (click)="updateQuantity(item, -1)"><i class="ri-subtract-line"></i></button>
+                        <span>{{ item.quantity }}</span>
+                        <button (click)="updateQuantity(item, 1)"><i class="ri-add-line"></i></button>
+                    </div>
+                    <span class="cs__card-price">
+                        {{ ((item?.variation ? item.variation.sale_price : item?.product &&
+                        item?.wholesale_price ? item?.wholesale_price : item?.product?.sale_price) || 0) |
+                        currencySymbol }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="cs__empty" *ngIf="!(cartItem$ | async)?.length">
+        <div class="cs__empty-icon">
+            <i class="ri-shopping-bag-2-line"></i>
+        </div>
+        <h5>Your bag is empty</h5>
+        <p>Looks like you haven't added anything yet.</p>
+        <button class="cs__empty-btn" (click)="closeCart()">Start Shopping</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="cs__foot" *ngIf="(cartItem$ | async)?.length">
+        <div class="cs__foot-row">
+            <span class="cs__foot-label">Subtotal</span>
+            <span class="cs__foot-total">{{ ((cartTotal$ | async) || 0) | currencySymbol }}</span>
+        </div>
+        <p class="cs__foot-note">Shipping & taxes calculated at checkout</p>
+        <a [routerLink]="['/checkout']" (click)="closeCart()" class="cs__foot-checkout">
+            Checkout
+        </a>
+        <a [routerLink]="['/cart']" (click)="closeCart()" class="cs__foot-view">
+            View Full Cart <i class="ri-arrow-right-line"></i>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="pb" [class]="class">
+    <!-- Close (wishlist page) -->
+    <div class="pb__close" *ngIf="close">
+        <app-button [class]="'btn'" [spinner]="false" [id]="'close_btn'" (click)="removeWishlist(product.id)">
+            <i class="ri-close-line"></i>
+        </app-button>
+    </div>
+
+    <!-- Image Block -->
+    <div class="pb__media">
+        <!-- Badge pill -->
+        <span class="pb__badge"
+            [ngClass]="product.is_sale_enable ? 'pb__badge--sale' : product.is_featured ? 'pb__badge--feat' : 'pb__badge--trend'"
+            *ngIf="product.is_trending || product.is_sale_enable || product.is_featured">
+            {{ (product.is_sale_enable ? 'sale' : product.is_featured ? 'featured' : product.is_trending ? 'trending'
+            : '') | translate }}
+        </span>
+
+        <!-- Wishlist heart — always visible -->
+        <button class="pb__wish" (click)="addToWishlist(product)" [class.is-active]="product.is_wishlist">
+            <i class="ri-heart-line" *ngIf="!product.is_wishlist"></i>
+            <i class="ri-heart-fill" *ngIf="product.is_wishlist"></i>
+        </button>
+
+        <a [routerLink]="['/product/', product.slug]" class="pb__img-link">
+            <img appLazyLoad [src]="product.product_thumbnail ?
+                        product.product_thumbnail.original_url :
+                        'assets/images/product.png'" class="pb__img lazy-loading" [alt]="product.name"
+                placeholder="assets/images/placeholder.png">
+        </a>
+
+        <!-- Quick View — slides up on hover -->
+        <div class="pb__peek" (click)="openQuickView(product)">
+            <i class="ri-eye-line"></i> Quick View
+        </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="pb__info">
+        <span class="pb__brand" *ngIf="product.brand">{{ product.brand.name }}</span>
+        <a [routerLink]="['/product/', product.slug]" class="pb__name-link">
+            <h3 class="pb__name">{{ product.name }}</h3>
+        </a>
+        <span class="pb__desc" *ngIf="product.short_description">{{ product.short_description }}</span>
+        <div class="pb__price">
+            <span class="pb__price-now">{{ product.price | currencySymbol }}</span>
+            <span class="pb__price-was" *ngIf="false">{{ product.sale_price | currencySymbol }}</span>
+        </div>
+        <div class="pb__cart">
+            <app-product-cart-button [product]="product" [text]="'Add to Bag'"></app-product-cart-button>
+        </div>
+    </div>
+</div>
+<app-product-detail-modal #productDetailModal [product]="product"></app-product-detail-modal>
+<app-variation-modal #variationModal></app-variation-modal>
+<app-cart-popup-modal #cartPopupModal></app-cart-popup-modal>
+<app-login-modal #loginModal></app-login-modal>

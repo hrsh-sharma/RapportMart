@@ -1,0 +1,345 @@
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$text: #333;
+
+.cart-page {
+  padding: 32px 0 56px;
+  background: #faf8fb;
+}
+
+// ── Header ──
+.cp__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.cp__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: $text;
+  margin: 0;
+}
+
+.cp__count {
+  font-size: 12px;
+  font-weight: 600;
+  color: $pink-dark;
+  background: $pink;
+  padding: 5px 16px;
+  border-radius: 20px;
+}
+
+// ── Cart Items ──
+.cp__items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cp__item {
+  display: flex;
+  gap: 18px;
+  background: #fff;
+  border: 1px solid #f0edf5;
+  border-radius: 14px;
+  padding: 18px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    border-color: $lavender;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+    gap: 14px;
+  }
+}
+
+.cp__item-img-wrap {
+  flex-shrink: 0;
+  width: 110px;
+  height: 130px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f6f4f9;
+
+  @media (max-width: 575px) {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+.cp__item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cp__item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cp__item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cp__item-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  line-height: 1.4;
+
+  a {
+    color: $text;
+    text-decoration: none;
+    &:hover { color: $pink-dark; }
+  }
+}
+
+.cp__item-variant {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  background: $lavender;
+  padding: 2px 10px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cp__item-remove {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+  transition: color 0.15s;
+  line-height: 1;
+
+  &:hover { color: #c0392b; }
+}
+
+.cp__item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Quantity pill
+.cp__qty {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e8e4ef;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #faf8fb;
+
+  ::ng-deep .cp__qty-btn,
+  ::ng-deep .cp__qty-btn button {
+    width: 34px !important;
+    height: 34px !important;
+    background: transparent !important;
+    border: none !important;
+    color: $text !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    min-width: unset !important;
+
+    &:hover { background: $lavender !important; }
+
+    i { font-size: 14px !important; }
+  }
+}
+
+.cp__qty-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text;
+  min-width: 32px;
+  text-align: center;
+}
+
+.cp__item-price {
+  font-size: 17px;
+  font-weight: 700;
+  color: $text;
+}
+
+// ── Summary Card ──
+.cp__summary {
+  background: #fff;
+  border: 1px solid #f0edf5;
+  border-radius: 16px;
+  padding: 28px 24px;
+  position: sticky;
+  top: 20px;
+
+  @media (max-width: 575px) { padding: 22px 18px; }
+}
+
+.cp__summary-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: $text;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0edf5;
+}
+
+.cp__summary-rows {
+  margin-bottom: 20px;
+}
+
+.cp__sum-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #888;
+  padding: 8px 0;
+
+  span:last-child { font-weight: 500; color: $text; }
+}
+
+.cp__sum-muted { color: #bbb !important; font-weight: 400 !important; }
+
+.cp__sum-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 700;
+  color: $text;
+  padding: 18px 0;
+  margin-bottom: 20px;
+  border-top: 2px solid #f0edf5;
+}
+
+.cp__btn-checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: $text;
+  color: $pink;
+  border: none;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.25s;
+  margin-bottom: 10px;
+
+  i { font-size: 16px; transition: transform 0.2s; }
+
+  &:hover {
+    background: $pink-dark;
+    color: #fff;
+    box-shadow: 0 6px 20px rgba($pink-dark, 0.3);
+    i { transform: translateX(3px); }
+  }
+}
+
+.cp__btn-continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: 1.5px solid #e8e4ef;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+
+  i { font-size: 16px; }
+
+  &:hover { border-color: $pink-dark; color: $pink-dark; }
+}
+
+// ── Empty State ──
+.cp__empty {
+  text-align: center;
+  padding: 80px 20px;
+
+  &-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $lavender, $pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+
+    i { font-size: 38px; color: $pink-dark; }
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: $text;
+    margin: 0 0 8px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #999;
+    margin: 0 auto 28px;
+    max-width: 320px;
+  }
+
+  &-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 32px;
+    background: $text;
+    color: $pink;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.25s;
+
+    i { font-size: 16px; transition: transform 0.2s; }
+
+    &:hover {
+      background: $pink-dark;
+      color: #fff;
+      box-shadow: 0 6px 20px rgba($pink-dark, 0.3);
+      i { transform: translateX(4px); }
+    }
+  }
+}

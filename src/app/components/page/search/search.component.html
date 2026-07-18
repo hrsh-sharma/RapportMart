@@ -1,0 +1,44 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<section class="srch">
+  <div class="container-fluid-lg">
+    <div class="srch__box">
+      <i class="ri-search-line srch__icon"></i>
+      <input type="text" class="srch__input" [formControl]="search"
+        placeholder="What are you looking for?" (keyup.enter)="searchProduct()">
+      <button class="srch__btn" (click)="searchProduct()">
+        Search <i class="ri-arrow-right-line"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="section-b-space">
+  <div class="container-fluid-lg">
+    <div
+      [ngClass]="{
+        'full_border': (themeOption$ | async)?.product?.full_border,
+        'product_img_bg': (themeOption$ | async)?.product?.image_bg,
+        'full_bg': (themeOption$ | async)?.product?.product_box_bg,
+        'product_border': (themeOption$ | async)?.product?.product_box_border }">
+      <div [class]="gridClass">
+        <ng-container *ngIf="productService.skeletonLoader else productContent">
+          <app-skeleton-product-box *ngFor="let item of skeletonItems"></app-skeleton-product-box>
+        </ng-container>
+        <ng-template #productContent>
+          <div class="col" *ngFor="let product of products">
+            <div class="search-product product-wrapper">
+              <div>
+                <app-product-box [product]="product" [style]="'horizontal'"></app-product-box>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="srch-empty" *ngIf="!products?.length && !productService.skeletonLoader">
+      <i class="ri-search-line"></i>
+      <p>No products found. Try a different search term.</p>
+    </div>
+  </div>
+</section>

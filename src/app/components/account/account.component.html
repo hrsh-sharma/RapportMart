@@ -1,0 +1,27 @@
+<section class="acct-page">
+    <div class="container-fluid-lg">
+        <!-- Account Nav — shows on every account page -->
+        <div class="acct-nav">
+            <a routerLink="/account/dashboard" routerLinkActive="acct-nav__item--active" class="acct-nav__item">
+                <i class="ri-dashboard-line"></i> Dashboard
+            </a>
+            <a routerLink="/account/order" routerLinkActive="acct-nav__item--active" class="acct-nav__item">
+                <i class="ri-shopping-bag-2-line"></i> Orders
+            </a>
+            <a routerLink="/account/addresses" routerLinkActive="acct-nav__item--active" class="acct-nav__item">
+                <i class="ri-map-pin-line"></i> Addresses
+            </a>
+            <a routerLink="/wishlist" routerLinkActive="acct-nav__item--active" class="acct-nav__item">
+                <i class="ri-heart-3-line"></i> Wishlist
+            </a>
+            <a routerLink="/collections" class="acct-nav__item">
+                <i class="ri-store-2-line"></i> Shop
+            </a>
+        </div>
+
+        <!-- Page Content -->
+        <div class="acct-content" id="account">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

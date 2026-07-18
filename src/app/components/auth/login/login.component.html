@@ -1,0 +1,49 @@
+<section class="ax">
+    <div class="ax__card">
+        <div class="ax__logo">
+            <img src="assets/images/logo-web.png" alt="Rapportmart">
+        </div>
+
+        <h1 class="ax__title">Welcome Back</h1>
+        <p class="ax__sub">Sign in to continue shopping</p>
+
+        <app-alert></app-alert>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="ax__form">
+            <div class="ax__field">
+                <label>Email</label>
+                <input type="email" formControlName="email" placeholder="you@example.com"
+                    (input)="filterEmailCharacters($event)" pattern="[a-zA-Z0-9._\-+@]+"
+                    [class.error]="form.controls['email'].touched && form.controls['email'].invalid">
+                <span class="ax__error" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']">Email is required</span>
+                <span class="ax__error" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email']">Invalid email</span>
+            </div>
+
+            <div class="ax__field">
+                <label>Password</label>
+                <input type="password" formControlName="password" placeholder="Enter your password"
+                    [class.error]="form.controls['password'].touched && form.controls['password'].invalid">
+                <span class="ax__error" *ngIf="form.controls['password'].touched && form.controls['password'].errors?.['required']">Password is required</span>
+            </div>
+
+            <div class="ax__field" *ngIf="reCaptcha">
+                <re-captcha formControlName="recaptcha"></re-captcha>
+            </div>
+
+            <div class="ax__row">
+                <label class="ax__check">
+                    <input type="checkbox"> <span>Remember me</span>
+                </label>
+                <a [routerLink]="['/auth/forgot-password']" class="ax__forgot">Forgot password?</a>
+            </div>
+
+            <div class="ax__submit">
+                <app-button [id]="'login_btn'" [class]="'ax__btn'">
+                    Sign In <i class="ri-arrow-right-line"></i>
+                </app-button>
+            </div>
+        </form>
+
+        <p class="ax__switch">Don't have an account? <a [routerLink]="['/auth/register']">Create one</a></p>
+    </div>
+</section>

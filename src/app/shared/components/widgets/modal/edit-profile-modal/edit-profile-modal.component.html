@@ -1,0 +1,88 @@
+<ng-template #profileModal let-modal>
+    <div class="ep-modal">
+        <!-- Header -->
+        <div class="ep-header">
+            <div>
+                <h3 class="ep-title">{{ 'edit_profile' | translate }}</h3>
+                <p class="ep-subtitle">Update your personal details</p>
+            </div>
+            <button class="ep-close" (click)="modal.dismiss('Cross click')">
+                <i class="ri-close-line"></i>
+            </button>
+        </div>
+
+        <!-- Form -->
+        <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="!flicker">
+            <div class="ep-body">
+                <div class="ep-field">
+                    <label for="name">{{ 'full_name' | translate }}</label>
+                    <input id="name" type="text" formControlName="name"
+                        placeholder="{{ 'enter_name' | translate }}"
+                        (keydown)="allowOnlyLetters($event)"
+                        (input)="sanitizeLettersInput($event)"
+                        (paste)="sanitizeLettersPaste($event)"
+                        [class.error]="form?.controls?.['name']?.touched && form.controls['name']?.invalid">
+                    <span class="ep-error" *ngIf="form?.controls?.['name']?.touched && form.controls['name']?.errors?.['required']">
+                        {{ 'name_is_required' | translate }}
+                    </span>
+                    <span class="ep-error" *ngIf="form?.controls?.['name']?.touched && form.controls['name']?.errors?.['pattern']">
+                        {{ 'Only letters and spaces are allowed' | translate }}
+                    </span>
+                </div>
+
+                <div class="ep-field">
+                    <label for="email">{{ 'email_address' | translate }}</label>
+                    <input id="email" type="email" formControlName="email"
+                        placeholder="{{ 'enter_email_address' | translate }}"
+                        [class.error]="form?.controls?.['email']?.touched && form.controls['email']?.invalid">
+                    <span class="ep-error" *ngIf="form?.controls?.['email']?.touched && form.controls['email']?.errors?.['required']">
+                        {{ 'email_address_is_required' | translate }}
+                    </span>
+                    <span class="ep-error" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email']">
+                        {{ 'please_enter_valid_email' | translate }}
+                    </span>
+                </div>
+
+                <div class="ep-field">
+                    <label>{{ 'phone_number' | translate }}</label>
+                    <div class="ep-phone-row">
+                        <select2
+                            class="ep-country-select"
+                            [templates]="template"
+                            [data]="codes"
+                            formControlName="country_code">
+                            <ng-template #template let-data="data">
+                                <div class="ep-country-opt">
+                                    <div class="iti-flag {{data?.class}}"></div>
+                                    <span>{{data.code}}</span>
+                                </div>
+                            </ng-template>
+                        </select2>
+                        <input type="tel" formControlName="phone"
+                            placeholder="{{ 'enter_phone' | translate }}"
+                            (keydown)="allowOnlyDigits($event)"
+                            (input)="sanitizeDigitsInput($event)"
+                            (paste)="sanitizeDigitsPaste($event)"
+                            [class.error]="form.controls['phone'].touched && form.controls['phone'].invalid">
+                    </div>
+                    <span class="ep-error" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
+                        {{ 'phone_number_is_required' | translate }}
+                    </span>
+                    <span class="ep-error" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['pattern']">
+                        {{ 'phone_number_is_invalid' | translate }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="ep-footer">
+                <button type="button" class="ep-btn-cancel" (click)="modal.dismiss('Cancel')">
+                    {{ 'cancel' | translate }}
+                </button>
+                <app-button [class]="'ep-btn-save'" [id]="'submit_profile_btn'">
+                    {{ 'Save Changes' | translate }}
+                </app-button>
+            </div>
+        </form>
+    </div>
+</ng-template>

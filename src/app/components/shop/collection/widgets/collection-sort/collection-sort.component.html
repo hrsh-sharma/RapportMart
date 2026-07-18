@@ -1,0 +1,32 @@
+<div class="coll-toolbar">
+    <!-- Left: Filter toggle -->
+    <div class="coll-toolbar__left">
+        <button class="toolbar-filter-btn d-inline-flex d-lg-none" (click)="openFilter(true)">
+            <i class="ri-equalizer-line"></i> Filters
+        </button>
+        <a href="javascript:void(0)" class="toolbar-filter-btn d-none d-lg-inline-flex" (click)="openOffCanvasMenu()"
+            *ngIf="filter && (filter['layout'] == 'collection_offcanvas_filter' || filter['layout'] == 'collection_category_sidebar' || filter['layout'] == 'collection_category_slider')">
+            <i class="ri-equalizer-line"></i> Filters
+        </a>
+    </div>
+
+    <!-- Right: Grid options -->
+    <div class="coll-toolbar__right d-none d-md-flex">
+        <button type="button" class="grid-opt" [class.active]="selectedGrid == 'collection_3_grid'"
+            (click)="grid('collection_3_grid')" title="3 Columns">
+            <i class="ri-layout-grid-line"></i>
+        </button>
+        <button type="button" class="grid-opt" [class.active]="selectedGrid == 'collection_4_grid'"
+            (click)="grid('collection_4_grid')" title="4 Columns">
+            <i class="ri-grid-fill"></i>
+        </button>
+        <button type="button" class="grid-opt d-xxl-inline-flex d-none"
+            [class.active]="selectedGrid == 'collection_5_grid'" (click)="grid('collection_5_grid')" title="5 Columns">
+            <i class="ri-layout-masonry-fill"></i>
+        </button>
+        <button type="button" class="grid-opt" [class.active]="selectedGrid == 'collection_list_view'"
+            (click)="grid('collection_list_view')" title="List View">
+            <i class="ri-list-check"></i>
+        </button>
+    </div>
+</div>

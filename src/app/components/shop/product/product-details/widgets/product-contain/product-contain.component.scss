@@ -1,0 +1,32 @@
+$pink: #FADADD;
+$pink-dark: #d4848b;
+$lavender: #E6E6FA;
+$text: #333;
+
+.quantity-wishlist-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .wishlist-btn-group {
+    .wishlist-btn {
+      background: #faf8fb;
+      padding: 10px 14px;
+      border-radius: 50px;
+      border: 1.5px solid #e8e4ef;
+      transition: all 0.2s;
+
+      i {
+        font-size: 20px;
+        color: #888;
+      }
+
+      &:hover {
+        background: $pink;
+        border-color: $pink;
+
+        i { color: $pink-dark; }
+      }
+    }
+  }
+}

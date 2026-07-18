@@ -1,0 +1,84 @@
+<!-- Product Detail Page -->
+<div class="pdp">
+    <div class="container-fluid-lg">
+        <div class="pdp__hero">
+            <!-- Left: Image -->
+            <div class="pdp__media">
+                <div class="pdp__badges">
+                    <span class="pdp__tag" *ngIf="product?.is_sale_enable else featured">{{ 'sale' | translate }}</span>
+                    <ng-template #featured>
+                        <span class="pdp__tag pdp__tag--feat" *ngIf="product?.is_featured">{{ 'featured' | translate }}</span>
+                    </ng-template>
+                </div>
+                <div class="pdp__image-wrap">
+                    <ng-container *ngIf="product?.product_galleries?.length && product.product_galleries?.[0] as firstImage; else noGallery">
+                        <ng-container *ngIf="firstImage && videType.includes(firstImage?.mime_type || ''); else checkAudio">
+                            <video class="pdp__video" controls>
+                                <source [src]="firstImage?.original_url || ''" [type]="firstImage?.mime_type || ''">
+                            </video>
+                        </ng-container>
+                        <ng-template #checkAudio>
+                            <ng-container *ngIf="firstImage && audioType.includes(firstImage?.mime_type || ''); else showImage">
+                                <audio controls><source [src]="firstImage?.original_url || ''" [type]="firstImage?.mime_type || ''"></audio>
+                            </ng-container>
+                            <ng-template #showImage>
+                                <img appLazyLoad [src]="firstImage?.original_url || 'assets/images/product.png'"
+                                    class="pdp__img lazy-loading" [alt]="product?.name || 'Product'"
+                                    placeholder="assets/images/placeholder.png">
+                            </ng-template>
+                        </ng-template>
+                    </ng-container>
+                    <ng-template #noGallery>
+                        <ng-container *ngIf="product?.product_thumbnail && videType.includes(product.product_thumbnail?.mime_type || ''); else checkThumbnailAudio">
+                            <video class="pdp__video" controls>
+                                <source [src]="product.product_thumbnail?.original_url || ''" [type]="product.product_thumbnail?.mime_type || ''">
+                            </video>
+                        </ng-container>
+                        <ng-template #checkThumbnailAudio>
+                            <ng-container *ngIf="product?.product_thumbnail && audioType.includes(product.product_thumbnail?.mime_type || ''); else showThumbnailImage">
+                                <audio controls><source [src]="product.product_thumbnail?.original_url || ''" [type]="product.product_thumbnail?.mime_type || ''"></audio>
+                            </ng-container>
+                            <ng-template #showThumbnailImage>
+                                <img appLazyLoad [src]="product?.product_thumbnail?.original_url || 'assets/images/product.png'"
+                                    class="pdp__img lazy-loading" [alt]="product?.name || 'Product'"
+                                    placeholder="assets/images/placeholder.png">
+                            </ng-template>
+                        </ng-template>
+                    </ng-template>
+                </div>
+            </div>
+
+            <!-- Right: Details -->
+            <div class="pdp__details">
+                <div class="pdp__details-inner">
+                    <app-product-contain [product]="product" [option]="option"></app-product-contain>
+                    <app-product-action [product]="product"></app-product-action>
+
+                    <!-- Product Information -->
+                    <div class="pdp__sections">
+                        <details class="pdp__section" open>
+                            <summary>Product Information</summary>
+                            <div class="pdp__section-body">
+                                <app-product-information [product]="product"></app-product-information>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description below -->
+    <div class="pdp__content">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-lg-9 mx-auto">
+                    <app-product-details-tabs [product]="product"></app-product-details-tabs>
+                </div>
+            </div>
+            <div class="related-product-2" *ngIf="product?.cross_sell_products && product?.cross_sell_products?.length">
+                <app-product-bundle [product]="product"></app-product-bundle>
+            </div>
+        </div>
+    </div>
+</div>

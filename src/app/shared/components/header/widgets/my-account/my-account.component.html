@@ -1,0 +1,91 @@
+<!-- Not logged in -->
+<ng-container *ngIf="!(isAuthenticated$ | async)">
+    <a [routerLink]="['/auth/login']" class="acc-signin" *ngIf="style == 'basic'">
+        <i class="ri-user-line"></i>
+    </a>
+</ng-container>
+
+<!-- Logged in -->
+<ng-container *ngIf="(isAuthenticated$ | async)">
+    <div class="acc-widget" *ngIf="style == 'basic'">
+        <div class="acc-trigger">
+            <div class="acc-avatar">
+                <img [src]="(user$ | async)?.profile_image?.original_url" class="acc-avatar-img" alt="profile"
+                    *ngIf="(user$ | async)?.profile_image && (user$ | async)?.profile_image?.original_url else initialsBlock">
+                <ng-template #initialsBlock>
+                    <span class="acc-avatar-char">{{ (user$ | async)?.name?.charAt(0)?.toString()?.toUpperCase() }}</span>
+                </ng-template>
+            </div>
+        </div>
+
+        <!-- Dropdown -->
+        <div class="acc-dropdown">
+            <!-- User card -->
+            <div class="acc-user-card">
+                <div class="acc-user-avatar-lg">
+                    <img [src]="(user$ | async)?.profile_image?.original_url" alt="profile"
+                        *ngIf="(user$ | async)?.profile_image && (user$ | async)?.profile_image?.original_url else bigInitials">
+                    <ng-template #bigInitials>
+                        <span>{{ (user$ | async)?.name?.charAt(0)?.toString()?.toUpperCase() }}</span>
+                    </ng-template>
+                </div>
+                <div class="acc-user-info">
+                    <span class="acc-user-name">{{ (user$ | async)?.name }}</span>
+                    <span class="acc-user-email">{{ (user$ | async)?.email }}</span>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div class="acc-menu">
+                <a [routerLink]="['/account/dashboard']" class="acc-menu-item">
+                    <div class="acc-menu-icon">
+                        <i class="ri-dashboard-line"></i>
+                    </div>
+                    <div class="acc-menu-text">
+                        <span class="acc-menu-label">Dashboard</span>
+                        <span class="acc-menu-desc">Overview & activity</span>
+                    </div>
+                </a>
+                <a [routerLink]="['/account/order']" class="acc-menu-item">
+                    <div class="acc-menu-icon">
+                        <i class="ri-shopping-bag-line"></i>
+                    </div>
+                    <div class="acc-menu-text">
+                        <span class="acc-menu-label">My Orders</span>
+                        <span class="acc-menu-desc">Track & manage orders</span>
+                    </div>
+                </a>
+                <a [routerLink]="['/account/addresses']" class="acc-menu-item">
+                    <div class="acc-menu-icon">
+                        <i class="ri-map-pin-line"></i>
+                    </div>
+                    <div class="acc-menu-text">
+                        <span class="acc-menu-label">Addresses</span>
+                        <span class="acc-menu-desc">Manage delivery addresses</span>
+                    </div>
+                </a>
+                <a [routerLink]="['/wishlist']" class="acc-menu-item">
+                    <div class="acc-menu-icon">
+                        <i class="ri-heart-3-line"></i>
+                    </div>
+                    <div class="acc-menu-text">
+                        <span class="acc-menu-label">Wishlist</span>
+                        <span class="acc-menu-desc">Items you love</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Logout -->
+            <div class="acc-footer">
+                <a href="javascript:void(0)" (click)="confirmationModal.openModal()" class="acc-logout-btn">
+                    <i class="ri-logout-box-r-line"></i> Sign Out
+                </a>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<app-confirmation-modal
+    #confirmationModal
+    (confirmed)="logout()">
+</app-confirmation-modal>
