@@ -17,7 +17,7 @@
 
     <!-- Tracking -->
     <div class="od__card od__tracking" *ngIf="showTracking">
-        <h3 class="od__card-title">Order Tracking</h3>
+        <h3 class="od__card-title"><i class="ri-route-line"></i> Order Tracking</h3>
         <div class="od__steps">
             <div class="od__step"
                 *ngFor="let orderStatus of (orderStatus$ | async)?.data"
@@ -40,7 +40,7 @@
 
     <!-- Products -->
     <div class="od__card" *ngIf="order?.products?.length">
-        <h3 class="od__card-title">Ordered Products</h3>
+        <h3 class="od__card-title"><i class="ri-shopping-bag-3-line"></i> Ordered Products</h3>
         <div class="od__product" *ngFor="let product of order.products">
             <img [src]="product?.pivot?.variation?.variation_image
                     ? product?.pivot?.variation?.variation_image?.original_url
@@ -82,10 +82,10 @@
     <div class="od__grid">
         <!-- Consumer Details -->
         <div class="od__card">
-            <h3 class="od__card-title">Details</h3>
+            <h3 class="od__card-title"><i class="ri-information-line"></i> Details</h3>
             <div class="od__details-list">
                 <div class="od__detail" *ngIf="order?.billing_address">
-                    <span class="od__detail-label">Billing Address</span>
+                    <span class="od__detail-label"><i class="ri-map-pin-line"></i> Billing Address</span>
                     <div class="od__detail-value">
                         <span *ngIf="order.billing_address.flat_no">{{ order.billing_address.flat_no }}, </span>
                         <span *ngIf="order.billing_address.building">{{ order.billing_address.building }}, </span>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="od__detail" *ngIf="order?.shipping_address && !order?.is_digital_only">
-                    <span class="od__detail-label">Shipping Address</span>
+                    <span class="od__detail-label"><i class="ri-truck-line"></i> Shipping Address</span>
                     <div class="od__detail-value">
                         <span *ngIf="order.shipping_address.flat_no">{{ order.shipping_address.flat_no }}, </span>
                         <span *ngIf="order.shipping_address.building">{{ order.shipping_address.building }}, </span>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="od__detail" *ngIf="order?.payment_method">
-                    <span class="od__detail-label">Payment</span>
+                    <span class="od__detail-label"><i class="ri-wallet-3-line"></i> Payment</span>
                     <span class="od__detail-value">
                         <ng-container [ngSwitch]="order?.payment_method">
                             <span *ngSwitchCase="'Rapportmart_nabu'">UPI Intent</span>
@@ -117,7 +117,7 @@
                     </span>
                 </div>
                 <div class="od__detail" *ngIf="order?.delivery_description && !order?.is_digital_only">
-                    <span class="od__detail-label">Delivery</span>
+                    <span class="od__detail-label"><i class="ri-calendar-event-line"></i> Delivery</span>
                     <span class="od__detail-value">Standard | Approx 10–15 Days</span>
                 </div>
             </div>
@@ -125,7 +125,7 @@
 
         <!-- Summary -->
         <div class="od__card od__summary-card">
-            <h3 class="od__card-title">Summary</h3>
+            <h3 class="od__card-title"><i class="ri-file-list-3-line"></i> Summary</h3>
             <div class="od__summary">
                 <div class="od__sum-row">
                     <span>Subtotal</span><span>{{ (order.amount || 0) | currencySymbol }}</span>
@@ -154,7 +154,7 @@
 
     <!-- Sub Orders -->
     <div class="od__card" *ngIf="order?.sub_orders?.length">
-        <h3 class="od__card-title">Sub Orders</h3>
+        <h3 class="od__card-title"><i class="ri-folders-line"></i> Sub Orders</h3>
         <div class="od__sub-order" *ngFor="let sub of order.sub_orders">
             <div class="od__sub-info">
                 <span class="od__sub-number">#{{ sub.order_number }}</span>

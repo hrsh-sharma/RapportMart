@@ -1,107 +1,167 @@
-$pink: #FADADD;
-$pink-dark: #d4848b;
-$lavender: #E6E6FA;
-$mint: #DFF5E1;
-$text: #333;
+// ─── Denver Theme Tokens ────────────────────────────────────────────────────
+$pink:       #FADADD;
+$pink-dark:  #d4848b;
+$pink-glow:  rgba(212, 132, 139, 0.18);
+$lavender:   #f0edf5;
+$lavender-d: #e6e0f0;
+$gold:       #C9A054;
+$text:       #333;
+$text-mid:   #666;
+$text-light: #999;
+$muted:      #bbb;
+$border:     #f0edf5;
+$white:      #fff;
 
-.od { max-width: 100%; }
+// ─── Wrapper ─────────────────────────────────────────────────────────────────
+.od {
+  max-width: 100%;
+  font-family: 'Poppins', 'Inter', sans-serif;
+}
 
-// Header
+// ─── Header ──────────────────────────────────────────────────────────────────
 .od__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 2px solid $border;
 }
 
 .od__title {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   color: $text;
-  margin-bottom: 2px;
+  margin: 0 0 4px;
+  letter-spacing: -0.3px;
 }
 
 .od__sub {
-  font-size: 13px;
-  color: #999;
+  font-size: 12px;
+  color: $text-light;
   margin: 0;
+  letter-spacing: 0.2px;
 }
 
 .od__actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .od__btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 9px 20px;
+  gap: 7px;
+  padding: 10px 22px;
   border-radius: 50px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: 0.3px;
 
-  i { font-size: 14px; }
+  i { font-size: 15px; }
 
   &--pay {
     background: $text;
-    color: $pink;
+    color: $white;
     border: none;
-    &:hover { background: $pink-dark; color: #fff; box-shadow: 0 4px 16px rgba($pink-dark, 0.3); }
+    box-shadow: 0 4px 14px rgba(51, 51, 51, 0.2);
+
+    &:hover {
+      background: $pink-dark;
+      color: $white;
+      box-shadow: 0 6px 20px $pink-glow;
+      transform: translateY(-1px);
+    }
   }
 
   &--outline {
-    background: #fff;
+    background: $white;
     color: $text;
-    border: 1.5px solid #e8e4ef;
-    &:hover { border-color: $pink-dark; color: $pink-dark; }
+    border: 1.5px solid $lavender-d;
+
+    &:hover {
+      border-color: $pink-dark;
+      color: $pink-dark;
+      background: $pink;
+      transform: translateY(-1px);
+    }
   }
 }
 
-// Card base
+// ─── Card Base ───────────────────────────────────────────────────────────────
 .od__card {
-  background: #fff;
-  border: 1px solid #f0edf5;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 14px;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.25s ease;
 
-  @media (max-width: 575px) { padding: 18px 16px; }
+  &:hover {
+    box-shadow: 0 4px 28px rgba(212, 132, 139, 0.09);
+  }
+
+  @media (max-width: 575px) { padding: 20px 18px; }
 }
 
 .od__card-title {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 800;
   color: $text;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-  padding-bottom: 14px;
-  border-bottom: 2px solid #f0edf5;
+  letter-spacing: 1.5px;
+  margin: 0 0 22px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid $border;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  i {
+    font-size: 14px;
+    color: $pink-dark;
+  }
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: $pink-dark;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
 }
 
-// ── Tracking ──
+// ─── Tracking Stepper ────────────────────────────────────────────────────────
+.od__tracking {
+  background: linear-gradient(135deg, #faf8fb 0%, #fff 100%);
+}
+
 .od__steps {
   display: flex;
   align-items: flex-start;
   position: relative;
-  padding: 0 8px;
+  padding: 8px 16px 4px;
+  overflow-x: auto;
 
   &::before {
     content: '';
     position: absolute;
-    top: 13px;
-    left: 20px;
-    right: 20px;
+    top: 23px;
+    left: 36px;
+    right: 36px;
     height: 3px;
-    background: #f0edf5;
+    background: $lavender;
     border-radius: 2px;
+    z-index: 0;
   }
 }
 
@@ -110,127 +170,166 @@ $text: #333;
   text-align: center;
   position: relative;
   z-index: 1;
+  min-width: 64px;
 
   .od__step-dot {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: #f0edf5;
-    margin: 0 auto 8px;
-    border: 3px solid #fff;
-    box-shadow: 0 0 0 2px #f0edf5;
-    transition: all 0.3s;
+    background: $lavender;
+    margin: 0 auto 10px;
+    border: 3px solid $white;
+    box-shadow: 0 0 0 2px $lavender;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .od__step-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: #bbb;
-    display: block;
-  }
-
-  &.done .od__step-dot {
-    background: $text;
-    box-shadow: 0 0 0 2px $text;
-  }
-
-  &.active .od__step-dot {
-    background: $pink-dark;
-    box-shadow: 0 0 0 2px $pink-dark, 0 0 0 6px rgba($pink-dark, 0.15);
-  }
-
-  &.active .od__step-label,
-  &.done .od__step-label {
-    color: $text;
+    font-size: 10px;
     font-weight: 600;
+    color: $muted;
+    display: block;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
   }
 
-  &.cancelled .od__step-dot {
-    background: #dc2626;
-    box-shadow: 0 0 0 2px #dc2626;
+  &.done {
+    .od__step-dot {
+      background: $text;
+      box-shadow: 0 0 0 2px $text;
+    }
+
+    .od__step-label {
+      color: $text;
+      font-weight: 700;
+    }
   }
 
-  &.cancelled .od__step-label { color: #dc2626; }
+  &.active {
+    .od__step-dot {
+      background: $pink-dark;
+      box-shadow: 0 0 0 2px $pink-dark, 0 0 0 8px $pink-glow;
+      transform: scale(1.12);
+    }
+
+    .od__step-label {
+      color: $pink-dark;
+      font-weight: 800;
+    }
+  }
+
+  &.cancelled {
+    .od__step-dot {
+      background: #dc2626;
+      box-shadow: 0 0 0 2px #dc2626, 0 0 0 6px rgba(220, 38, 38, 0.15);
+    }
+
+    .od__step-label { color: #dc2626; font-weight: 700; }
+  }
 }
 
-// ── Products ──
+// ─── Products ────────────────────────────────────────────────────────────────
 .od__product {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid #f5f2f8;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid $border;
 
   &:last-child { border-bottom: none; padding-bottom: 0; }
   &:first-child { padding-top: 0; }
+
+  &:hover .od__product-img {
+    transform: scale(1.05);
+  }
 
   @media (max-width: 575px) { flex-wrap: wrap; }
 }
 
 .od__product-img {
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
   object-fit: cover;
-  background: #f6f4f9;
+  background: $lavender;
   flex-shrink: 0;
+  border: 1px solid $border;
+  transition: transform 0.3s ease;
 }
 
 .od__product-info { flex: 1; min-width: 0; }
 
 .od__product-name {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: $text;
-  margin-bottom: 4px;
+  margin: 0 0 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .od__product-meta {
-  font-size: 13px;
-  color: #999;
+  font-size: 12px;
+  color: $text-light;
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 8px;
 }
 
 .od__product-subtotal {
-  font-weight: 600;
+  font-weight: 700;
   color: $text;
+  font-size: 13px;
 }
 
 .od__product-refund { flex-shrink: 0; }
 
 .od__refund-btn {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   color: $pink-dark;
   text-decoration: none;
-  padding: 4px 14px;
+  padding: 5px 16px;
   border: 1.5px solid $pink-dark;
   border-radius: 20px;
-  transition: all 0.2s;
+  background: $white;
+  transition: all 0.22s;
+  letter-spacing: 0.3px;
 
-  &:hover { background: $pink-dark; color: #fff; text-decoration: none; }
+  &:hover {
+    background: $pink-dark;
+    color: $white;
+    text-decoration: none;
+    box-shadow: 0 4px 12px $pink-glow;
+  }
 }
 
+// ─── Badges ──────────────────────────────────────────────────────────────────
 .od__badge {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   padding: 4px 12px;
   border-radius: 20px;
   white-space: nowrap;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 
-  &--muted { background: #f5f2f8; color: #aaa; }
-  &--status { background: $lavender; color: #7c6bae; }
+  &--muted {
+    background: $lavender;
+    color: $muted;
+  }
+
+  &--status {
+    background: $pink;
+    color: $pink-dark;
+  }
 }
 
-// ── Details + Summary grid ──
+// ─── Details + Summary Grid ──────────────────────────────────────────────────
 .od__grid {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 14px;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
   align-items: start;
 
   @media (max-width: 991px) { grid-template-columns: 1fr; }
@@ -239,104 +338,152 @@ $text: #333;
 .od__details-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .od__detail {
   .od__detail-label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    color: $muted;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+
+    i {
+      font-size: 13px;
+      color: $pink-dark;
+      margin-right: 2px;
+    }
   }
 
   .od__detail-value {
     font-size: 13px;
-    color: #555;
-    line-height: 1.6;
+    color: $text-mid;
+    line-height: 1.75;
+    padding-left: 12px;
+    border-left: 2px solid $border;
   }
 }
 
 .od__status {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 11px;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 
   &--completed, &--success { color: #16a34a; }
   &--pending { color: #7c6bae; }
   &--cancelled, &--failed { color: #dc2626; }
 }
 
-// Summary
+// ─── Summary Card ────────────────────────────────────────────────────────────
 .od__summary-card {
-  background: #faf8fb !important;
+  background: linear-gradient(160deg, #faf8fb 0%, #fff 100%) !important;
+  border-color: $lavender-d !important;
 }
 
 .od__summary {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .od__sum-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 13px;
-  color: #888;
+  color: $text-light;
 
-  &--discount { color: #16a34a; }
+  span:last-child { font-weight: 600; color: $text-mid; }
+
+  &--discount {
+    color: #16a34a;
+    span:last-child { color: #16a34a; }
+  }
 
   &--total {
-    padding-top: 14px;
+    padding-top: 16px;
     margin-top: 4px;
-    border-top: 2px solid #f0edf5;
+    border-top: 2px dashed $lavender-d;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
     color: $text;
+
+    span:last-child {
+      color: $pink-dark;
+      font-size: 18px;
+    }
   }
 }
 
-// Sub orders
+// ─── Sub Orders ──────────────────────────────────────────────────────────────
 .od__sub-order {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
-  border-bottom: 1px solid #f5f2f8;
+  padding: 16px 0;
+  border-bottom: 1px solid $border;
   gap: 12px;
 
-  &:last-child { border-bottom: none; }
+  &:last-child { border-bottom: none; padding-bottom: 0; }
+  &:first-child { padding-top: 0; }
 }
 
 .od__sub-info {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .od__sub-number {
   font-size: 14px;
+  font-weight: 800;
+  color: $text;
+  letter-spacing: -0.2px;
+}
+
+.od__sub-date {
+  font-size: 11px;
+  color: $text-light;
+  background: $lavender;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.od__sub-amount {
+  font-size: 13px;
   font-weight: 700;
   color: $text;
 }
 
-.od__sub-date { font-size: 12px; color: #aaa; }
-.od__sub-amount { font-size: 13px; font-weight: 600; color: $text; }
-
 .od__sub-link {
-  font-size: 12px;
-  font-weight: 600;
-  color: $text;
+  font-size: 11px;
+  font-weight: 700;
+  color: $white;
+  background: $text;
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
   flex-shrink: 0;
+  padding: 6px 16px;
+  border-radius: 50px;
+  letter-spacing: 0.3px;
+  transition: all 0.22s;
 
-  i { font-size: 16px; }
-  &:hover { color: $pink-dark; }
+  i { font-size: 15px; }
+
+  &:hover {
+    background: $pink-dark;
+    color: $white;
+    text-decoration: none;
+    box-shadow: 0 4px 12px $pink-glow;
+    transform: translateX(2px);
+  }
 }

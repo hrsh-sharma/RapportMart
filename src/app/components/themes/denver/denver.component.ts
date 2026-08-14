@@ -32,7 +32,7 @@ export class DenverComponent implements OnInit, OnDestroy, AfterViewInit {
   // Featured Products by ID (4-5 products in a row)
   public featuredProductIds: number[] = [2939, 2940, 2941, 2949];
   public featuredProductIds2: number[] = [3318, 3321, 3325, 3330, 3343, 3344];
-  public latestItemIds: number[] = [6974, 6997, 6995, 6996];
+  public latestItemIds: number[] = [6978, 3512, 6481];
   public discountItemIds: number[] = [2941, 2950, 2956, 2959];
   public list3ItemIds: number[] = [4262, 4264, 4266, 4592];
   
