@@ -516,24 +516,28 @@ $pol-text: #333;
     ul {
         padding-left: 0;
         list-style: none;
-        margin: 0;
+        margin: 0 0 8px;
+        display: block;
 
         li {
+            display: block !important;
             font-size: 14px;
             color: #666;
             line-height: 1.8;
-            padding: 6px 0 6px 20px;
+            padding: 5px 0 5px 22px;
             position: relative;
 
             &::before {
                 content: '';
                 position: absolute;
                 left: 0;
-                top: 14px;
+                top: 50%;
+                transform: translateY(-50%);
                 width: 6px;
                 height: 6px;
                 border-radius: 50%;
                 background: $pol-pink-dark;
+                flex-shrink: 0;
             }
         }
     }
