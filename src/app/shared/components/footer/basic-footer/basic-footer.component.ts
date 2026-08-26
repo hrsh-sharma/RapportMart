@@ -19,6 +19,13 @@ export class BasicFooterComponent {
   public isSubmitting: boolean = false;
   public showBackToTop: boolean = false;
 
+  // Support form state
+  public supportEmail = new FormControl('', [Validators.required, Validators.email]);
+  public supportMessage = new FormControl('', [Validators.required]);
+  public showSupportForm: boolean = false;
+  public supportSubmitted: boolean = false;
+  public isSupportSubmitting: boolean = false;
+
   public active: { [key: string]: boolean } = {
     collections: false,
     useful_link: false,
@@ -82,6 +89,33 @@ export class BasicFooterComponent {
       top: 0,
       behavior: 'smooth'
     });
+  }
+
+  toggleSupportForm() {
+    this.showSupportForm = !this.showSupportForm;
+    if (!this.showSupportForm) {
+      this.resetSupportForm();
+    }
+  }
+
+  submitSupportForm() {
+    this.supportEmail.markAsTouched();
+    this.supportMessage.markAsTouched();
+    if (this.supportEmail.invalid || this.supportMessage.invalid) return;
+
+    this.isSupportSubmitting = true;
+    // Simulate async submission (replace with real API call if needed)
+    setTimeout(() => {
+      this.isSupportSubmitting = false;
+      this.supportSubmitted = true;
+    }, 1200);
+  }
+
+  resetSupportForm() {
+    this.supportEmail.reset();
+    this.supportMessage.reset();
+    this.supportSubmitted = false;
+    this.isSupportSubmitting = false;
   }
 
   toggleSocialActions() {

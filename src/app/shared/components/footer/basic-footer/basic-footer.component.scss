@@ -243,40 +243,268 @@ $text: #333;
 }
 
 // =============================================
-// Back to Top
+// Floating Action Buttons (FAB Stack)
 // =============================================
-.back-to-top-btn {
+$pink: var(--theme-color);
+$pink-dark: var(--theme-color2);
+
+.fab-stack {
   position: fixed;
   bottom: 28px;
   right: 28px;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 575px) { bottom: 14px; right: 14px; gap: 8px; }
+}
+
+.fab {
   width: 44px;
   height: 44px;
-  background: #fff;
-  color: $text;
-  border: 1.5px solid #eee;
   border-radius: 50%;
+  border: 1.5px solid #eee;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
+  font-size: 20px;
+
+  @media (max-width: 575px) { width: 38px; height: 38px; font-size: 16px; }
+
+  // Back to top
+  &--top {
+    background: #fff;
+    color: #222;
+    &:hover {
+      background: var(--theme-color, #e91e8c);
+      border-color: var(--theme-color, #e91e8c);
+      color: #fff;
+      transform: translateY(-4px);
+    }
+  }
+
+  // Support
+  &--support {
+    background: var(--theme-color, #e91e8c);
+    border-color: var(--theme-color, #e91e8c);
+    color: #fff;
+    &:hover {
+      background: var(--theme-color2, #c41578);
+      border-color: var(--theme-color2, #c41578);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(233, 30, 140, 0.3);
+    }
+  }
+}
+
+// =============================================
+// Support Slide-up Panel
+// =============================================
+.support-panel {
+  position: fixed;
+  bottom: 110px;
+  right: 28px;
+  z-index: 999;
+  width: 320px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.14);
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transform: scale(0.8);
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  transform-origin: bottom right;
 
-  @media (max-width: 575px) { width: 38px; height: 38px; bottom: 14px; right: 14px; }
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
 
-  &.show { opacity: 1; visibility: visible; transform: scale(1); }
+  @media (max-width: 575px) {
+    right: 14px;
+    bottom: 90px;
+    width: calc(100vw - 28px);
+    max-width: 320px;
+  }
 
-  i { font-size: 20px; @media (max-width: 575px) { font-size: 16px; } }
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--theme-color, #e91e8c);
+    color: #fff;
+  }
 
-  &:hover {
-    background: $pink;
-    border-color: $pink-dark;
-    color: $pink-dark;
-    transform: translateY(-4px);
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+
+    i { font-size: 18px; }
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+    font-size: 20px;
+    &:hover { opacity: 1; }
+  }
+
+  &__desc {
+    font-size: 12.5px;
+    color: #666;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  &__body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__submit {
+    width: 100%;
+    padding: 10px 16px;
+    background: var(--theme-color, #e91e8c);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 4px;
+    transition: background 0.2s ease, transform 0.2s ease;
+
+    i { font-size: 15px; }
+
+    &:hover:not(:disabled) {
+      background: var(--theme-color2, #c41578);
+      transform: translateY(-1px);
+    }
+    &:disabled { opacity: 0.65; cursor: not-allowed; }
+  }
+
+  // Success state
+  &__success {
+    padding: 28px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    i {
+      font-size: 48px;
+      color: #22c55e;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 600;
+      color: #222;
+      margin: 0;
+    }
+  }
+
+  &__success-sub {
+    font-size: 12.5px !important;
+    font-weight: 400 !important;
+    color: #777 !important;
+    line-height: 1.5;
+  }
+
+  &__new-btn {
+    margin-top: 6px;
+    padding: 8px 20px;
+    background: transparent;
+    border: 1.5px solid var(--theme-color, #e91e8c);
+    color: var(--theme-color, #e91e8c);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover {
+      background: var(--theme-color, #e91e8c);
+      color: #fff;
+    }
+  }
+}
+
+// =============================================
+// Support Form Fields
+// =============================================
+.support-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+
+  label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #222;
+    background: #fafafa;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+
+    &::placeholder { color: #aaa; }
+    &:focus { border-color: var(--theme-color, #e91e8c); background: #fff; }
+    &.error { border-color: #ef4444; }
+  }
+
+  &__error {
+    font-size: 11px;
+    color: #ef4444;
   }
 }
 
