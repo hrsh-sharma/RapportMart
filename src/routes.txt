@@ -9,5 +9,6 @@
 /refund-and-cancellation
 /return-exchange
 /shipping-delevary
+/shipping-policy
 /term-condition 
 /paymentresult/awaitingconfirmation_cash

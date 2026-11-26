@@ -1,14 +1,14 @@
 <div class="theme-logo">
     <a [routerLink]="['/']" href="/">
         <img appLazyLoad
-             [src]="footer?.footer_logo || 'assets/images/mangal-logo.png'"
+             [src]="footer?.footer_logo || 'assets/images/logo-web.png'"
              class="img-fluid lazy-loading"
              alt="logo"
              placeholder="assets/images/placeholder.png"
              *ngIf="footer?.footer_logo else text">
         <ng-template #text>
             <h2 class="f-w-600" *ngIf="data && data?.general">
-                {{ (setting$ | async)?.general ? (setting$ | async)?.general?.site_name : 'Logo Here' }}
+                {{ (setting$ | async)?.general ? (setting$ | async)?.general?.site_name : 'Rapportmart' }}
             </h2>
         </ng-template>
     </a>

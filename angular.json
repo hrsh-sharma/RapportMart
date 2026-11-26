@@ -36,7 +36,9 @@
                             "src/favicon.ico",
                             "src/assets",
                             "src/sitemap.xml",
-                            "src/robots.txt"
+                            "src/robots.txt",
+                            "src/.htaccess",
+                            "src/web.config"
                         ],
                         "styles": [
                             "src/styles.scss"
@@ -162,7 +164,9 @@
                             "src/favicon.ico",
                             "src/assets",
                             "src/sitemap.xml",
-                            "src/robots.txt"
+                            "src/robots.txt",
+                            "src/.htaccess",
+                            "src/web.config"
                         ],
                         "styles": [
                             "src/styles.scss"

@@ -180,10 +180,10 @@ export class SeoExampleComponent implements OnInit {
       title: 'Rapportmart Premium Mens and Womens Fashion Online',
       description: 'Discover new season shirts jackets suits denim and more at Rapportmart. Premium quality fast shipping across India COD and easy returns.',
       keywords: 'activewear, gym wear, joggers, men\'s clothes, women\'s clothes, stylish outfits, comfort fit, performance clothing, Rapportmart',
-      image: 'https://Rapportmart.in/assets/images/hero-banner.jpg',
-      url: 'https://Rapportmart.in',
+      image: 'https://rapportmart.com/assets/images/hero-banner.jpg',
+      url: 'https://rapportmart.com',
       type: 'website',
-      author: 'Ecomus Team'
+      author: 'Rapportmart Team'
     });
 
     // Set organization structured data
@@ -191,8 +191,8 @@ export class SeoExampleComponent implements OnInit {
 
     // Set breadcrumb structured data
     this.seoService.setBreadcrumbStructuredData([
-      { name: 'Home', url: 'https://Rapportmart.in' },
-      { name: 'Featured Products', url: 'https://Rapportmart.in/featured' }
+      { name: 'Home', url: 'https://rapportmart.com' },
+      { name: 'Featured Products', url: 'https://rapportmart.com/featured' }
     ]);
   }
 } 

@@ -21,7 +21,7 @@
 
             <div class="ax__field">
                 <label>Email</label>
-                <input type="email" formControlName="email" placeholder="you@example.com"
+                <input type="email" formControlName="email" placeholder="info@rapportmart.com"
                     (input)="filterEmailCharacters($event)" pattern="[a-zA-Z0-9._\-+@]+"
                     [class.error]="form.controls['email'].touched && form.controls['email'].invalid">
                 <span class="ax__error" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']">Email is required</span>

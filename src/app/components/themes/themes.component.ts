@@ -44,9 +44,9 @@ export class ThemesComponent implements OnInit {
     
     // Set additional homepage-specific SEO data
     this.seoService.setSEOData({
-      canonicalUrl: 'https://Rapportmart.in/',
-      url: 'https://Rapportmart.in/',
-      image: 'https://Rapportmart.in/assets/images/hero-banner.jpg'
+      canonicalUrl: 'https://rapportmart.com/',
+      url: 'https://rapportmart.com/',
+      image: 'https://rapportmart.com/assets/images/hero-banner.jpg'
     });
   }
   

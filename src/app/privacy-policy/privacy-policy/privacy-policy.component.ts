@@ -18,8 +18,8 @@ export class PrivacyPolicyComponent implements OnInit {
       title: 'Privacy Policy – How We Use Your Data | Rapportmart',
       description: 'Learn how Rapportmart protects and uses your personal information. Read our comprehensive privacy policy to understand your rights and our data practices.',
       keywords: 'privacy policy, data protection, personal information, Rapportmart privacy, data usage',
-      canonicalUrl: 'https://Rapportmart.in/privacy-policy', // ✅ Canonical URL for SEO
-      url: 'https://Rapportmart.in/privacy-policy',
+      canonicalUrl: 'https://rapportmart.com/privacy-policy', // ✅ Canonical URL for SEO
+      url: 'https://rapportmart.com/privacy-policy',
       type: 'website'
     });
   }

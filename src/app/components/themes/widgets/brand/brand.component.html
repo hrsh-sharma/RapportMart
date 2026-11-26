@@ -1,4 +1,4 @@
-<div class="brand-section" >
+<div class="brand-section" *ngIf="brands?.length">
     <div class="brand-row" [class.no-bg]="brands.length < 6 ">
         <div class="row row-cols-6 justify-content-center">
             <div *ngFor="let brand of brands">
@@ -11,10 +11,5 @@
                 </a>
             </div>
         </div>
-        <app-no-data
-            [class]="'no-data-added bg-light'"
-            [text]="'no_product_found'"
-            *ngIf="!brands?.length">
-        </app-no-data>
     </div>
 </div>

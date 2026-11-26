@@ -258,7 +258,7 @@ export class SeoService {
       "name": "RAPPORTMART ECOMMERCE PRIVATE LIMITED",
       "legalName": "RAPPORTMART ECOMMERCE PRIVATE LIMITED",
       "url": "https://rapportmart.com",
-      "logo": "https://rapportmart.com/assets/images/logo.png",
+      "logo": "https://rapportmart.com/assets/images/logo-web.png",
       "email": "info@rapportmart.com",
       "sameAs": [
         "https://www.instagram.com/rapportmart_official",
@@ -352,7 +352,7 @@ export class SeoService {
         "name": "RAPPORTMART ECOMMERCE PRIVATE LIMITED",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://rapportmart.com/assets/images/logo.png"
+          "url": "https://rapportmart.com/assets/images/logo-web.png"
         }
       },
       "datePublished": article.publishedDate,

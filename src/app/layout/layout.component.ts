@@ -132,29 +132,29 @@ export class LayoutComponent {
     if(this.theme) {
       
       if(this.theme == 'paris') {
-        headerLogo = 'assets/images/logo/1.png';
-        footerLogo = 'assets/images/logo/1.png';
+        headerLogo = 'assets/images/logo-web.png';
+        footerLogo = 'assets/images/logo-web.png';
 
       } else if (this.theme == 'osaka'){
-        headerLogo = 'assets/images/logo/1.png';
-        footerLogo = 'assets/images/logo/1.png';
+        headerLogo = 'assets/images/logo-web.png';
+        footerLogo = 'assets/images/logo-web.png';
 
       } else if(this.theme == 'tokyo') {
-        headerLogo = 'assets/images/logo/2.png';
-        footerLogo = 'assets/images/logo/2.png';
+        headerLogo = 'assets/images/logo-web.png';
+        footerLogo = 'assets/images/logo-web.png';
 
       } else if(this.theme == 'rome') {
-        headerLogo = 'assets/images/logo/3.png';
-        footerLogo = 'assets/images/logo/3.png';
+        headerLogo = 'assets/images/logo-web.png';
+        footerLogo = 'assets/images/logo-web.png';
 
       } else if(this.theme == 'madrid') {
-        headerLogo = 'assets/images/logo/4.png';
-        footerLogo = 'assets/images/logo/4.png'
+        headerLogo = 'assets/images/logo-web.png';
+        footerLogo = 'assets/images/logo-web.png'
         footerClass = 'footer-section-2 footer-color-2'
 
       } else if(this.theme == 'berlin') {
-        headerLogo = 'assets/images/logo/6.png';
-        footerLogo = 'assets/images/logo/4.png'
+        headerLogo = 'assets/images/logo-web.png';
+        footerLogo = 'assets/images/logo-web.png'
         footerClass = 'footer-section-2 footer-color-3'
 
       } else if( this.theme == 'denver') {
@@ -163,13 +163,13 @@ export class LayoutComponent {
         footerClass = 'footer-section-2 footer-color-3'
 
       } else if(this.theme == 'moscow') {
-        headerLogo = 'assets/images/logo/6.png';
-        footerLogo = 'assets/images/logo/4.png'
+        headerLogo = 'assets/images/logo-web.png';
+        footerLogo = 'assets/images/logo-web.png'
         footerClass = 'footer-section-2 footer-color-3'
 
       }else if(this.theme == 'cairo') {
-        headerLogo = 'assets/images/logo/7.png';
-        footerLogo = 'assets/images/logo/4.png'
+        headerLogo = 'assets/images/logo-web.png';
+        footerLogo = 'assets/images/logo-web.png'
         footerClass = 'footer-section-2 footer-color-3'
       }
     } else {

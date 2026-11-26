@@ -27,7 +27,7 @@ export const content: Routes = [
     title: 'Refund & Cancellation Policy – Smooth Shopping | Rapportmart'
   },
   {
-    path: "Contact-Us",
+    path: "contact-us",
     loadChildren: () => import("../../contact-us/contact-us.module").then((m) => m.ContactUsModule),
     title: 'Contact Rapportmart – We’re Here to Help You 24/7'
   },
