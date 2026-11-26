@@ -157,6 +157,7 @@ export class RegisterComponent {
 
   submit() {
     this.form.markAllAsTouched();
+    this.tnc.markAsTouched();
     if(this.tnc.invalid){
       return
     }

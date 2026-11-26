@@ -45,6 +45,7 @@
                         [class.error]="form.controls['phone'].touched && form.controls['phone'].invalid">
                 </div>
                 <span class="ax__error" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">Phone is required</span>
+                <span class="ax__error" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['invalid']">Phone number must be 10 digits</span>
             </div>
 
             <div class="ax__grid">
@@ -58,21 +59,24 @@
                     <label>Confirm Password</label>
                     <input type="password" formControlName="password_confirmation" placeholder="Confirm password"
                         [class.error]="form.controls['password_confirmation'].touched && (form.controls['password_confirmation'].errors?.['required'] || passwordMatchError)">
-                    <span class="ax__error" *ngIf="passwordMatchError">Passwords don't match</span>
+                    <span class="ax__error" *ngIf="form.controls['password_confirmation'].touched && form.controls['password_confirmation'].errors?.['required']">Confirm password is required</span>
+                    <span class="ax__error" *ngIf="!form.controls['password_confirmation'].errors?.['required'] && passwordMatchError">Passwords don't match</span>
                 </div>
             </div>
 
             <div class="ax__field" *ngIf="reCaptcha">
                 <re-captcha formControlName="recaptcha"></re-captcha>
+                <span class="ax__error" *ngIf="form.controls['recaptcha']?.touched && form.controls['recaptcha']?.invalid">Please verify reCAPTCHA</span>
             </div>
 
             <label class="ax__check">
                 <input type="checkbox" [formControl]="tnc">
                 <span [class.text-danger]="tnc.touched && tnc.invalid">I agree to the <a routerLink="/term-condition">Terms</a> & <a routerLink="/privacy-policy">Privacy Policy</a></span>
             </label>
+            <span class="ax__error" *ngIf="tnc.touched && tnc.invalid">Please agree to the Terms & Privacy Policy</span>
 
             <div class="ax__submit">
-                <app-button [id]="'sign_up_btn'" [disabled]="tnc.invalid || form.invalid" [class]="'ax__btn'">
+                <app-button [id]="'sign_up_btn'" [class]="'ax__btn'">
                     Sign Up <i class="ri-arrow-right-line"></i>
                 </app-button>
             </div>

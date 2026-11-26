@@ -28,6 +28,18 @@ export class GlobalErrorHandler implements ErrorHandler {
         } else {
           // Client Error
           message = errorService.getClientErrorMessage(error);
+          if (
+            message.includes('Failed to fetch dynamically imported module') ||
+            message.includes('ChunkLoadError') ||
+            message.includes('Loading chunk')
+          ) {
+            const reloadKey = 'chunk_reload_attempted';
+            if (typeof window !== 'undefined' && !sessionStorage.getItem(reloadKey)) {
+              sessionStorage.setItem(reloadKey, '1');
+              window.location.reload();
+              return;
+            }
+          }
           if(!message.includes('Something Went Wrong') && !message.includes('Http failure response for')) {
             notifier.showError(message);
           }

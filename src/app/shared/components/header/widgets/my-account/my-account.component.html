@@ -1,6 +1,6 @@
 <!-- Not logged in -->
 <ng-container *ngIf="!(isAuthenticated$ | async)">
-    <a [routerLink]="['/auth/login']" class="acc-signin" *ngIf="style == 'basic'">
+    <a href="/auth/login" [routerLink]="['/auth/login']" class="acc-signin" title="Login / Register" *ngIf="style == 'basic'">
         <i class="ri-user-line"></i>
     </a>
 </ng-container>

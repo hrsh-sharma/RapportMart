@@ -28,6 +28,7 @@
 
             <div class="ax__field" *ngIf="reCaptcha">
                 <re-captcha formControlName="recaptcha"></re-captcha>
+                <span class="ax__error" *ngIf="form.controls['recaptcha']?.touched && form.controls['recaptcha']?.invalid">Please verify reCAPTCHA</span>
             </div>
 
             <div class="ax__row">
