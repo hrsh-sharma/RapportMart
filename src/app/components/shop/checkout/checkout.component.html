@@ -310,17 +310,15 @@
                                         </span>
                                     </div>
                                     <div class="summary-row" *ngIf="!(cartDigital$ | async)">
-                                        <span class="summary-label">{{ 'Shipping' | translate }}</span>
+                                        <span class="summary-label">Delivery Charges</span>
                                         <span class="summary-value">
-                                            {{ (checkoutTotal ? (checkoutTotal.total.shipping_total |
-                                            currencySymbol) : (0 | currencySymbol)) }}
+                                            {{ 0 | currencySymbol }}
                                         </span>
                                     </div>
                                     <div class="summary-row">
-                                        <span class="summary-label">{{ 'Tax' | translate }}</span>
+                                        <span class="summary-label">SGST</span>
                                         <span class="summary-value">
-                                            {{ (checkoutTotal ? (checkoutTotal.total.tax_total | currencySymbol) :
-                                            (0 | currencySymbol)) }}
+                                            {{ 0 | currencySymbol }}
                                         </span>
                                     </div>
                                     <div class="summary-row"
